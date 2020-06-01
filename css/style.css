@@ -1,0 +1,169 @@
+/* ---- CSS DEBUG ---- */
+/* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+} */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body { 
+    height: 100%;
+    opacity: 1;
+    background-color: #17243e;
+    color: #fff;
+    font-size: 125%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    margin-top: 2em;
+}
+
+.header-title {
+    text-align: center;
+}
+
+/* ---- Fonts ---- */
+h1, .h1 {
+    font-size: 1.6em;
+}
+
+h2, .h2 {
+    font-size: 1.5em;
+    margin: 0 0 0.5em 0;
+}
+
+/* ---- Layout ---- */
+.container {
+	padding-left: 1em;
+    padding-right: 1em;
+    position: relative;
+    min-height: 100%;    
+}
+
+.col {
+    margin: 0 0 3em 0;
+}
+
+footer {
+    font-weight: 200;
+    position: absolute;
+    bottom: 0;
+    width: 90%;
+    height: 40px;
+}
+
+
+/* ---- addExpense ---- */
+.addExpense {
+    margin-bottom: 3em;
+}
+
+.addExpense-inputLabel {
+    margin-bottom: 0.2em;
+}
+
+.addExpense-button {
+    background-color: orange;
+    border-radius: 0;
+    color: #fff;
+    font-size: 0.8em;
+    border: none;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    box-shadow:  1px 3px 0 rgba(0,0,0,0.2);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* ---- expenseTotal ---- */
+.expenseTotal {
+    margin-bottom: 1em;
+}
+
+.expenseTotal-text--strong {
+    font-weight: 700;
+}
+
+/* ---- expenseTotal ---- */
+.expensesTable thead {
+    font-weight: 700;
+}
+
+.expensesTable tr {
+    border-bottom: 1px solid white;
+}
+
+.expensesTable td {
+    padding: 8px 20px 8px 0px;
+}
+
+/* ---- Forms ---- */
+label {
+    display: block;
+    width: 100%;
+}
+
+input, select {
+    margin-bottom: 1em;
+}
+
+button {
+    display: block;
+}
+
+/* ================================= 
+  Media Queries 
+==================================== */
+
+@media (min-width: 737px) {
+    /* ---- Fonts ---- */
+    h1, .h1 {
+        font-size: 2.75em;
+    }
+
+    h2, .h2 {
+        font-size: 2em;
+    }    
+
+    /* ---- Columns layout ---- */
+    .container {
+        margin: 0 auto;
+        max-width: 42em;    
+    }
+
+	.col {
+        float: left;
+        margin: 3em 0 3em 0;        
+	}
+
+	.col + .col {
+		padding-left: 1em;
+    }
+    
+    .primary {
+        width: 40%;
+    }
+
+    .secundairy {
+        width: 60%;
+    }
+
+	.col:last-child {
+		padding-right: 0;
+	}
+
+	/* ---- Float clearfix ---- */
+	.clearfix::after {
+		content: " ";
+		display: table;
+		clear: both;
+	}
+}
