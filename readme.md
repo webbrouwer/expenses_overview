@@ -1,8 +1,8 @@
 # Set up
 
-* Create a config/config.php file and insert below code. Adjust to your credentials
-* Run `npm install`
-* You are good to go
+* Create a config/config.php file and insert code from below. Adjust to it your credentials.
+* Run `npm install`.
+* You are good to go. :+1:
 
 ```php
 /**
@@ -15,9 +15,9 @@
  * Configuration for database connection
  *
  */
- $host      = "localgo";
- $username  = "root";
- $password  = "root";
+ $host      = "localhost";
+ $username  = "USERNAME";
+ $password  = "PASSWORD";
  $dbname    = "DB_NAME";
  $dsn       = "mysql:host=$host;dbname=$dbname";
  $options   = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION); 

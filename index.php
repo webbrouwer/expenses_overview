@@ -15,7 +15,7 @@ setlocale(LC_TIME, 'NL_nl');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses Overview</title>
 
-    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css"> 
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
