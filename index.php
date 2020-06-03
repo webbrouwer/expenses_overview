@@ -5,6 +5,8 @@ include "./functions.php";
 
 $month = getMonthIndex();
 
+$monthCounter = 0;
+
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -19,11 +21,11 @@ $month = getMonthIndex();
 <body>
     <div class="container">
         <header class="header">
-            <form action="" method="GET">
-                <button type="submit" name="prev_month">Vorige maand</button>
-                <h1 class="header-title">Uitgaven Overzicht - <?php echo getMonthName(); ?></h1>
-                <button type="submit" name="next_month">Vorige maand</button>
-            </form>
+            <a href="#" id="prev-month" name="prev_month">Vorige maand</a>
+            <h1 class="header-title">
+                Uitgaven Overzicht - <span id="current-month"><?php echo getMonthName(); ?></span>
+            </h1>
+            <a href="#" id="next-month" type="submit" name="next_month">Volgende maand</a>
         </header>
 
         <div>
@@ -85,6 +87,39 @@ $month = getMonthIndex();
     </div>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
     <script>
+        var monthCounter = 0;
+                            
+        // https://gomakethings.com/vanilla-js-event-delegation-with-a-lot-of-event-handlers-on-one-page/
+        var currentMonth = document.querySelector('#current-month');
+        var prevMonthButton = document.querySelector('#prev-month');
+        var nextMonthButton = document.querySelector('#next-month');
+
+        // @TODO
+        // use month counter to display different months + their database data
+        // Refactor to custom.js
+
+        function subtractMonthIndex() {
+            return monthCounter = monthCounter - 1;
+        }
+
+        function addMonthIndex() {
+            return monthCounter = monthCounter + 1;
+        }
+        
+        prevMonthButton.addEventListener('click', function (event) {
+            subtractMonthIndex(monthCounter);
+            event.preventDefault();
+            console.log(monthCounter);   
+        }, false);
+
+        nextMonthButton.addEventListener('click', function (event) {
+            addMonthIndex(monthCounter);
+            event.preventDefault();
+            console.log(monthCounter);   
+        }, false);        
+
+        console.log(monthCounter);        
+
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create

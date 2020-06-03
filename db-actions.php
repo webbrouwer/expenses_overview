@@ -42,17 +42,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 * Total amount spend in month
 *
 */
-function totalAmount() {
+function totalAmount($month) {
     include './config/config.php';
 
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);  
 
     try {
-        $sql = "SELECT value FROM expenses";
+        $data = [
+            'month' => $month
+        ];
+
+        $sql = "SELECT value FROM expenses
+                WHERE MONTH(date) = :month";
 
         $statement = $connection->prepare($sql);
-        $statement->execute();
+        $statement->execute($data);
 
         $allSpendings = $statement->fetchAll(PDO::FETCH_COLUMN);
 
@@ -69,17 +74,22 @@ function totalAmount() {
 * Total amount spend in month
 *
 */
-function allExpenses() {
+function allExpenses($month) {
     include './config/config.php';
 
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);  
 
     try {
-        $sql = "SELECT * FROM expenses";
+        $data = [
+            'month' => $month
+        ];
+
+        $sql = "SELECT * FROM expenses
+                WHERE MONTH(date) = :month";
 
         $statement = $connection->prepare($sql);
-        $statement->execute();
+        $statement->execute($data);
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }   

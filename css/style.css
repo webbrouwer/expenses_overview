@@ -5,10 +5,6 @@
     outline: solid #f00 1px !important;
 } */
 
-* {
-    box-sizing: border-box;
-}
-
 html {
     height: 100%;
 }
