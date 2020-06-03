@@ -3,9 +3,9 @@
 include "./db-actions.php";
 include "./functions.php";
 
-$month = getMonthIndex();
 
-setlocale(LC_TIME, 'NL_nl');
+
+
 
 ?>
 <!DOCTYPE html>
@@ -21,9 +21,11 @@ setlocale(LC_TIME, 'NL_nl');
 <body>
     <div class="container">
         <header class="header">
-            <span>Vorige maand</span>
-            <h1 class="header-title">Uitgaven Overzicht - <?php echo ucfirst(strftime('%B %Y',time())); ?></h1>
-            <span>Volgende maand</span>
+            <form action="" method="GET">
+                <button type="submit" name="prev_month">Vorige maand</button>
+                <h1 class="header-title">Uitgaven Overzicht - <?php echo showMonth(); ?></h1>
+                <button type="submit" name="next_month">Vorige maand</button>
+            </form>
         </header>
 
         <div>
@@ -48,12 +50,12 @@ setlocale(LC_TIME, 'NL_nl');
                 </div>
                 
                 <div class="allExpenses">
-                <?php $expenses = allExpenses(); ?>
+                <?php $expenses = allExpenses($month); ?>
                     <h2>Totaal overzicht</h2>
 
                     <div class="expenseTotal">
                         <p class="expenseTotal-text">
-                            <span class="expenseTotal-text--strong">Totaal:</span> €<?php echo totalAmount(); ?>,-
+                            <span class="expenseTotal-text--strong">Totaal:</span> €<?php echo totalAmount($month); ?>,-
                         </p>
                     </div>    
 
@@ -81,8 +83,6 @@ setlocale(LC_TIME, 'NL_nl');
         </div>
 
         <?php $result = totalSpendCategoryMonth('huur', $month); ?>
-        <?php echo '<pre>'; ?>
-        <?php var_dump($result); ?>
         
     </div>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
