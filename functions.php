@@ -1,10 +1,22 @@
 <?php 
 
-function showMonth() {
-    $month = date('n');
+function getMonthIndex() {
+    $monthIndex = date('n');
 
-    $dateObj   = DateTime::createFromFormat('!m', $month);
-    $monthName = $dateObj->format('F');
-
-    return $monthName;
+    return $monthIndex;
 }
+
+function getMonthName() {
+    $monthIndex = getMonthIndex();
+    $dateObj = DateTime::createFromFormat('!m', $monthIndex);
+    return $monthName = $dateObj->format('F');
+}
+
+$monthCounter = 06;
+
+$dateObj   = DateTime::createFromFormat('!m', $monthCounter);
+$monthName = $dateObj->format('F');
+$nextMonth = $dateObj->modify('+1 month')->format('F');
+$prevMonth = $dateObj->modify('-1 month')->format('F');
+
+

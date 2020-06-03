@@ -3,9 +3,7 @@
 include "./db-actions.php";
 include "./functions.php";
 
-
-
-
+$month = getMonthIndex();
 
 ?>
 <!DOCTYPE html>
@@ -23,7 +21,7 @@ include "./functions.php";
         <header class="header">
             <form action="" method="GET">
                 <button type="submit" name="prev_month">Vorige maand</button>
-                <h1 class="header-title">Uitgaven Overzicht - <?php echo showMonth(); ?></h1>
+                <h1 class="header-title">Uitgaven Overzicht - <?php echo getMonthName(); ?></h1>
                 <button type="submit" name="next_month">Vorige maand</button>
             </form>
         </header>
