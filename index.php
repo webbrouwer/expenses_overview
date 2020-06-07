@@ -87,8 +87,10 @@ $monthCounter = 0;
     </div>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
     <script>
-        var monthCounter = 0;
-                            
+
+        var date = new Date();
+  
+  
         // https://gomakethings.com/vanilla-js-event-delegation-with-a-lot-of-event-handlers-on-one-page/
         var currentMonth = document.querySelector('#current-month');
         var prevMonthButton = document.querySelector('#prev-month');
@@ -98,28 +100,30 @@ $monthCounter = 0;
         // use month counter to display different months + their database data
         // Refactor to custom.js
 
-        function subtractMonthIndex() {
-            return monthCounter = monthCounter - 1;
+        function prevMonth() {
+            date.setMonth(date.getMonth()-1);
         }
 
-        function addMonthIndex() {
-            return monthCounter = monthCounter + 1;
+        function nextMonth() {
+            date.setMonth(date.getMonth()+1);
         }
         
         prevMonthButton.addEventListener('click', function (event) {
-            subtractMonthIndex(monthCounter);
-            event.preventDefault();
-            console.log(monthCounter);   
+            prevMonth()
+            console.log(date);   
         }, false);
 
         nextMonthButton.addEventListener('click', function (event) {
-            addMonthIndex(monthCounter);
-            event.preventDefault();
-            console.log(monthCounter);   
+            nextMonth()
+            console.log(date);    
         }, false);        
 
-        console.log(monthCounter);        
 
+        /**
+        *
+        * Pie chart from chart.js
+        *
+        */
         var ctx = document.getElementById('myChart').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
