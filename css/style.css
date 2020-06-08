@@ -144,17 +144,27 @@ footer a:hover {
 
 
 /* ---- expenseTable ---- */
+.expensesTable {
+    width: 100%;
+    border: 2px solid #142037;
+    border-spacing: 0;
+}
+
 .expensesTable thead {
     font-weight: 700;
     background-color:#10192b;
 }
 
-.expensesTable tr {
-    border-bottom: 1px solid white;
+.expensesTable td {
+    padding: 16px 20px 16px 16px;
 }
 
-.expensesTable td {
-    padding: 8px 20px 8px 0px;
+.expensesTable td:nth-child(even) {
+    text-align: center;
+}
+
+.expensesTable tr:nth-child(even) {
+    background-color: #2e3951;
 }
 
 .expensesTable-expensesTableCategory {
