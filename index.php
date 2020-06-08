@@ -24,13 +24,19 @@ $month = getMonthIndex();
                 Expenses - <span id="js-currentMonth"></span>
             </h1>
             <button id="js-nextMonth" class="header-buttonNextMonth">></button>
+
+            <div class="expenseTotal">
+                    <p class="expenseTotal-text">
+                        <span class="expenseTotal-text--strong">Monthly total:</span> €<?php echo totalAmount($month); ?>,-
+                    </p>
+                </div>
         </header>
 
         <div class="col primary">
             <div class="addExpense">
                 
                 <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
-                    <label class="addExpense-inputLabel" for="value">Add expense</label>
+                    <label class="addExpense-inputLabel" for="value">Expenses</label>
                     <input class="addExpense-input" type="number" name="value" id="value">
 
                     <label class="addExpense-inputLabel" for="category">Category</label>
@@ -40,7 +46,7 @@ $month = getMonthIndex();
                     </select>
 
                     <label class="addExpense-inputLabel" for="date">Date</label>
-                    <input class="addExpense-input" type="date" name="date" id="date">
+                    <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date">
 
                     <button class="addExpense-button" type="submit">Submit</button>
                 </form>
@@ -48,23 +54,17 @@ $month = getMonthIndex();
             
             <div class="allExpenses">
             <?php $expenses = allExpenses($month); ?>
-                <h2>Totaal overzicht</h2>
-
-                <div class="expenseTotal">
-                    <p class="expenseTotal-text">
-                        <span class="expenseTotal-text--strong">Totaal:</span> €<?php echo totalAmount($month); ?>,-
-                    </p>
-                </div>    
+                <h2>Expenses Table</h2>
 
                 <table class="expensesTable">
                     <thead>
-                        <td>Bedrag</td>
-                        <td>Categorie</td>
+                        <td>Amount</td>
+                        <td>Category</td>
                     </thead>
                     <?php foreach ($expenses as $name) { ?>
                     <tr>
                         <td><?php echo '€' . $name['value'];  ?></td>
-                        <td><?php echo $name['category']; ?></td>                            
+                        <td class="expensesTable-expensesTableCategory"><?php echo $name['category']; ?></td>                            
                     </tr>
                     <?php  } ?>                       
                 </table>
@@ -73,6 +73,8 @@ $month = getMonthIndex();
         </div>
 
         <div class="col secundairy expenseChart">
+
+            <h2 class="expenseChart-title">Expenses Pie</h2>
 
             <canvas id="myChart"></canvas>
 
