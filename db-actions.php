@@ -7,7 +7,7 @@ require './config/config.php';
 * Add to DB
 *
 */
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_REQUEST['add-expense'])) {
     // Collect variables form form
     $value = htmlspecialchars($_POST['value'], ENT_QUOTES, 'utf-8');
     $category = htmlspecialchars($_POST['category'], ENT_QUOTES, 'utf-8');
@@ -61,7 +61,13 @@ function totalAmount($month) {
 
         $allSpendings = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-        return array_sum($allSpendings);
+        $totalAmout = array_sum($allSpendings);
+
+        // TODO: echo or print result to get in in JS with AJAX
+        echo $totalAmout;
+
+        return $totalAmout;
+
     }   
     
     catch(PDOExeption $error) {
@@ -71,7 +77,7 @@ function totalAmount($month) {
 
 /**
 *
-* Total amount spend in month
+* All expenses
 *
 */
 function allExpenses($month) {
@@ -135,3 +141,30 @@ function totalSpendCategoryMonth($category, $month) {
 }
 
 
+/**
+*
+* Receive clicked data from JS AJAX
+*
+*/
+
+$contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+if ($contentType === "application/json") {
+  //Receive the RAW post data.
+  $content = trim(file_get_contents("php://input"));
+  $decoded = json_decode($content, true);
+
+  // If json_decode failed, the JSON is invalid.
+  if(is_array($decoded)) {  
+    $action = $decoded['data_action'];
+    switch($action) {
+        case '': 
+            totalAmount(intval($decoded['monthIndex']));
+            break;          
+        }
+    echo 'Data has been send, functions take over from here!';
+    } else {
+            // Send error back to user.
+            echo 'JSON invalid';
+    }    
+}

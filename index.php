@@ -26,10 +26,10 @@ $month = getMonthIndex();
             <button id="js-nextMonth" class="header-buttonNextMonth">></button>
 
             <div class="expenseTotal">
-                    <p class="expenseTotal-text">
-                        <span class="expenseTotal-text--strong">Monthly total:</span> €<?php echo totalAmount($month); ?>,-
-                    </p>
-                </div>
+                <p class="expenseTotal-text">
+                    <span class="expenseTotal-text--strong">Monthly total:</span> €<span id="js-expenseTotal-value"><?php echo totalAmount($month); ?></span>,-
+                </p>
+            </div>
         </header>
 
         <div class="col primary">
@@ -48,7 +48,7 @@ $month = getMonthIndex();
                     <label class="addExpense-inputLabel" for="date">Date</label>
                     <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date">
 
-                    <button class="addExpense-button" type="submit">Submit</button>
+                    <button class="addExpense-button" type="submit" name="add-expense">Submit</button>
                 </form>
             </div>
             
