@@ -5,8 +5,6 @@ include "./functions.php";
 
 $month = getMonthIndex();
 
-$monthCounter = 0;
-
 ?>
 <!DOCTYPE html>
 <html lang="nl">
@@ -21,132 +19,103 @@ $monthCounter = 0;
 <body>
     <div class="container">
         <header class="header">
-            <a href="#" id="prev-month" name="prev_month">Vorige maand</a>
+            <button id="js-prevMonth" class="header-buttonPrevMonth"><</button>
             <h1 class="header-title">
-                Uitgaven Overzicht - <span id="current-month"><?php echo getMonthName(); ?></span>
+                Expenses - <span id="js-currentMonth"></span>
             </h1>
-            <a href="#" id="next-month" type="submit" name="next_month">Volgende maand</a>
+            <button id="js-nextMonth" class="header-buttonNextMonth">></button>
         </header>
 
-        <div>
-            <div class="col primary">
-                <div class="addExpense">
-                    
-                    <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
-                        <label class="addExpense-inputLabel" for="value">Toevoegen</label>
-                        <input type="number" name="value" id="value">
-
-                        <label class="addExpense-inputLabel" for="category">Categorie</label>
-                        <select name="category" id="category">
-                            <option value="huur">Huur</option>
-                            <option value="boodschappen">boodschappen</option>  
-                        </select>
-
-                        <label class="addExpense-inputLabel" for="date">Datum</label>
-                        <input type="date" name="date" id="date">
-
-                        <button class="addExpense-button" type="submit">Toevoegen</button>
-                    </form>
-                </div>
+        <div class="col primary">
+            <div class="addExpense">
                 
-                <div class="allExpenses">
-                <?php $expenses = allExpenses($month); ?>
-                    <h2>Totaal overzicht</h2>
+                <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
+                    <label class="addExpense-inputLabel" for="value">Add expense</label>
+                    <input class="addExpense-input" type="number" name="value" id="value">
 
-                    <div class="expenseTotal">
-                        <p class="expenseTotal-text">
-                            <span class="expenseTotal-text--strong">Totaal:</span> €<?php echo totalAmount($month); ?>,-
-                        </p>
-                    </div>    
+                    <label class="addExpense-inputLabel" for="category">Category</label>
+                    <select class="addExpense-input" name="category" id="category">
+                        <option value="huur">Rent</option>
+                        <option value="boodschappen">Groceries</option>  
+                    </select>
 
-                    <table class="expensesTable">
-                        <thead>
-                            <td>Bedrag</td>
-                            <td>Categorie</td>
-                        </thead>
-                        <?php foreach ($expenses as $name) { ?>
-                        <tr>
-                            <td><?php echo '€' . $name['value'];  ?></td>
-                            <td><?php echo $name['category']; ?></td>                            
-                        </tr>
-                       <?php  } ?>                       
-                    </table>
-                </div>
+                    <label class="addExpense-inputLabel" for="date">Date</label>
+                    <input class="addExpense-input" type="date" name="date" id="date">
+
+                    <button class="addExpense-button" type="submit">Submit</button>
+                </form>
             </div>
+            
+            <div class="allExpenses">
+            <?php $expenses = allExpenses($month); ?>
+                <h2>Totaal overzicht</h2>
 
-            <div class="col secundairy expenseChart">
+                <div class="expenseTotal">
+                    <p class="expenseTotal-text">
+                        <span class="expenseTotal-text--strong">Totaal:</span> €<?php echo totalAmount($month); ?>,-
+                    </p>
+                </div>    
 
-                <canvas id="myChart"></canvas>
-
-            </div>
+                <table class="expensesTable">
+                    <thead>
+                        <td>Bedrag</td>
+                        <td>Categorie</td>
+                    </thead>
+                    <?php foreach ($expenses as $name) { ?>
+                    <tr>
+                        <td><?php echo '€' . $name['value'];  ?></td>
+                        <td><?php echo $name['category']; ?></td>                            
+                    </tr>
+                    <?php  } ?>                       
+                </table>
+            </div> <!-- allExpenses -->
 
         </div>
 
-        <?php $result = totalSpendCategoryMonth('huur', $month); ?>
+        <div class="col secundairy expenseChart">
+
+            <canvas id="myChart"></canvas>
+
+        </div>    
         
-    </div>
+    </div> <!-- /container -->    
+
+    <footer>
+        <p>Code by <a href="https://webbrouwer.com" target="_blank">WebBrouwer</a></p>
+    </footer>           
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
+    <script src="./js/main.js"></script>
     <script>
 
-        var date = new Date();
-  
-  
-        // https://gomakethings.com/vanilla-js-event-delegation-with-a-lot-of-event-handlers-on-one-page/
-        var currentMonth = document.querySelector('#current-month');
-        var prevMonthButton = document.querySelector('#prev-month');
-        var nextMonthButton = document.querySelector('#next-month');
+    <?php $result = totalSpendCategoryMonth('huur', $month); ?>        
+    /**
+    *
+    * Pie chart from chart.js
+    *
+    */
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
 
-        // @TODO
-        // use month counter to display different months + their database data
-        // Refactor to custom.js
+        // The data for our dataset
+        data: {
+            labels: [
+                'Huur',
+                'Boodschappen'
+            ],                
+            datasets: [{
+                data: [<?php echo 10; ?>, 20],
+                backgroundColor: [
+                    'rgba(255, 99, 132)',
+                    'rgba(54, 162, 235)'
+                ] 
+            }] 
+        },
 
-        function prevMonth() {
-            date.setMonth(date.getMonth()-1);
-        }
-
-        function nextMonth() {
-            date.setMonth(date.getMonth()+1);
-        }
-        
-        prevMonthButton.addEventListener('click', function (event) {
-            prevMonth()
-            console.log(date);   
-        }, false);
-
-        nextMonthButton.addEventListener('click', function (event) {
-            nextMonth()
-            console.log(date);    
-        }, false);        
-
-
-        /**
-        *
-        * Pie chart from chart.js
-        *
-        */
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var chart = new Chart(ctx, {
-            // The type of chart we want to create
-            type: 'pie',
-
-            // The data for our dataset
-            data: {
-                labels: [
-                    'Huur',
-                    'Boodschappen'
-                ],                
-                datasets: [{
-                    data: [<?php echo 10; ?>, 20],
-                    backgroundColor: [
-                        'rgba(255, 99, 132)',
-                        'rgba(54, 162, 235)'
-                    ] 
-                }] 
-            },
-
-            // Configuration options go here
-            options: {}
-        });    
+        // Configuration options go here
+        options: {}
+    });    
     </script>                            
 </body>
 </html>
