@@ -9,21 +9,23 @@ var datePicker = document.querySelector('#js-datePicker');
 
 var expenseTotalValue = document.querySelector('#js-expenseTotal-value');
 
-var monthNames = ["January", "February", "March", "April", "May", "June",
+var monthNames = ["", "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ]
 var date = new Date();
-var monthIndex = date.getMonth();
+var monthIndex = date.getMonth() + 1;
 
 
-// Escape input
+/**
+ * Escape input
+ */
 function escapeHtml(unsafe) {
     return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 }
 
 
@@ -31,57 +33,44 @@ function escapeHtml(unsafe) {
  * Display the current month on the page 
  */
 currentMonth.innerHTML = monthNames[monthIndex];
+currentMonth.setAttribute('data-month-index', monthIndex);
 
 /**
  * Set the date of today in the datepicker
  */
 datePicker.valueAsDate = date;
 
-
+// @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
 /**
  * Change the month to the previous month
  */
 function prevMonth() {
-    date.setMonth(date.getMonth()-1);
-    monthIndex = date.getMonth();
-    currentMonth.innerHTML = monthNames[monthIndex];
-    prevMonthButton.setAttribute('data-month-index', monthIndex);    
+    monthIndex = monthIndex - 1;
+    currentMonth.innerHTML = monthNames[monthIndex]; 
+    prevMonthButton.setAttribute('data-month-index', monthIndex);   
 }
 
 /**
  * Change the month to the next month
  */
 function nextMonth() {
-    date.setMonth(date.getMonth()+1);
-    monthIndex = date.getMonth();
+    monthIndex = monthIndex + 1;
     currentMonth.innerHTML = monthNames[monthIndex];
     nextMonthButton.setAttribute('data-month-index', monthIndex);    
 }
 
 
 /**
- * Event Linsteners
+ * Get the total amount spend for the month index
  */
-prevMonthButton.addEventListener('click', function (event) {
-    prevMonth();
-    handlePrevMonth();
-}, false);
+function getMonthlyAmountSpend() {
 
-nextMonthButton.addEventListener('click', function (event) {
-    nextMonth();
-}, false);
-
-
-
-function handlePrevMonth() {
-
-    // Store values of checkbox
-    var data = {
+     // Store values of checkbox
+     var data = {
         monthIndex: escapeHtml(event.target.getAttribute('data-month-index')),    
         data_action: 'totalAmount'
-    };
+    }; 
 
-    // TODO: Refactor POST to GET to rerieve total amount spend fot monthIndex
     fetch("db-actions.php", {
         method: "POST",
         mode: "same-origin",
@@ -99,9 +88,59 @@ function handlePrevMonth() {
             return Promise.reject(response);
         }
     }).then(function(data) {
-        console.log(data);
-    }).then(res => {
-        console.log("Request complete! response:", res);
+        expenseTotalValue.innerHTML = data;
+    });
+
+}
+
+
+/**
+ * Initial load the montly total amount spend
+ */
+function firstLoad() {
+
+    // Store values of checkbox
+    var data = {
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),    
+        data_action: 'totalAmount'
+    };
+
+    fetch("db-actions.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+    },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        // check if response is OK, if not error is displayed in .catch
+        if (response.ok) {
+            // ReadableStream to JSON
+            return response.json();
+        } else {
+            return Promise.reject(response);
+        }
+    }).then(function(data) {
+        expenseTotalValue.innerHTML = data;
     }); 
 
-};
+}
+
+
+/**
+ * Event Linsteners
+ */
+prevMonthButton.addEventListener('click', function (event) {
+    prevMonth();
+    getMonthlyAmountSpend();
+}, false);
+
+nextMonthButton.addEventListener('click', function (event) {
+    nextMonth();
+    getMonthlyAmountSpend();  
+}, false);
+
+window.addEventListener('load', function (event) {
+    firstLoad();
+}, false);

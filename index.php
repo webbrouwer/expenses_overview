@@ -27,7 +27,7 @@ $month = getMonthIndex();
 
             <div class="expenseTotal">
                 <p class="expenseTotal-text">
-                    <span class="expenseTotal-text--strong">Monthly total:</span> €<span id="js-expenseTotal-value"><?php echo totalAmount($month); ?></span>,-
+                    <span class="expenseTotal-text--strong">Monthly total:</span> €<span id="js-expenseTotal-value"></span>,-
                 </p>
             </div>
         </header>
@@ -36,7 +36,7 @@ $month = getMonthIndex();
             <div class="addExpense">
                 
                 <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
-                    <label class="addExpense-inputLabel" for="value">Expenses</label>
+                    <label class="addExpense-inputLabel" for="value">Add expense</label>
                     <input class="addExpense-input" type="number" name="value" id="value">
 
                     <label class="addExpense-inputLabel" for="category">Category</label>
@@ -52,6 +52,7 @@ $month = getMonthIndex();
                 </form>
             </div>
             
+            <!-- @TODO: render allExpenses for the month that is selected -->
             <div class="allExpenses">
             <?php $expenses = allExpenses($month); ?>
                 <h2>Expenses Table</h2>
@@ -73,7 +74,7 @@ $month = getMonthIndex();
         </div>
 
         <div class="col secundairy expenseChart">
-
+            <!-- @TODO: render the pie for the values of the month that is selected -->
             <h2 class="expenseChart-title">Expenses Pie</h2>
 
             <canvas id="myChart"></canvas>

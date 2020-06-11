@@ -63,10 +63,8 @@ function totalAmount($month) {
 
         $totalAmout = array_sum($allSpendings);
 
-        // TODO: echo or print result to get in in JS with AJAX
-        echo $totalAmout;
-
-        return $totalAmout;
+        header('Content-Type: application/json');
+        echo json_encode($totalAmout);
 
     }   
     
@@ -158,11 +156,10 @@ if ($contentType === "application/json") {
   if(is_array($decoded)) {  
     $action = $decoded['data_action'];
     switch($action) {
-        case '': 
+        case 'totalAmount': 
             totalAmount(intval($decoded['monthIndex']));
             break;          
         }
-    echo 'Data has been send, functions take over from here!';
     } else {
             // Send error back to user.
             echo 'JSON invalid';
