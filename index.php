@@ -1,7 +1,7 @@
 <?php
 // Silky smooth functions
-include "./db-actions.php";
-include "./functions.php";
+require "./db-actions.php";
+require "./functions.php";
 
 $month = getMonthIndex();
 
@@ -41,17 +41,17 @@ $month = getMonthIndex();
             <!-- @TODO: render allExpenses for the month that is selected -->
             <div class="allExpenses">
             <?php $expenses = allExpenses($month); ?>
-                <h2>All expenses</h2>
+                <h2>All Expenses</h2>
 
                 <table class="expensesTable">
                     <thead>
                         <td>Amount</td>
                         <td>Category</td>
                     </thead>
-                    <?php foreach ($expenses as $name) { ?>
+                    <?php foreach ($expenses as $expense) { ?>
                     <tr>
-                        <td><?php echo '€' . $name['value'];  ?></td>
-                        <td class="expensesTable-expensesTableCategory"><?php echo $name['category']; ?></td>
+                        <td><?php echo '€' . $expense['value'];  ?></td>
+                        <td class="expensesTable-expensesTableCategory"><?php echo $expense['category']; ?></td>
                     </tr>
                     <?php  } ?>
                 </table>
@@ -94,7 +94,7 @@ $month = getMonthIndex();
                 'Boodschappen'
             ],
             datasets: [{
-                data: [<?php echo 10; ?>, 20],
+                data: [10, 20],
                 backgroundColor: [
                     'rgba(255, 99, 132)',
                     'rgba(54, 162, 235)'

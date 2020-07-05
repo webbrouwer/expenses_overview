@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 require './config/config.php';
 
@@ -12,9 +12,9 @@ if (isset($_REQUEST['add-expense'])) {
     $value = htmlspecialchars($_POST['value'], ENT_QUOTES, 'utf-8');
     $category = htmlspecialchars($_POST['category'], ENT_QUOTES, 'utf-8');
     $date = htmlspecialchars($_POST['date'], ENT_QUOTES, 'utf-8');
-    
+
     // Connection
-    $connection = new PDO($dsn, $username, $password, $options);  
+    $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
@@ -27,8 +27,8 @@ if (isset($_REQUEST['add-expense'])) {
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
-    }   
-    
+    }
+
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
@@ -38,15 +38,15 @@ if (isset($_REQUEST['add-expense'])) {
 
 
 /**
-*
-* Total amount spend in month
-*
-*/
+ * totalAmount description
+ * @param  [type] $month [description]
+ * @return [type]        [description]
+ */
 function totalAmount($month) {
     include './config/config.php';
 
     // Connection
-    $connection = new PDO($dsn, $username, $password, $options);  
+    $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
@@ -66,11 +66,11 @@ function totalAmount($month) {
         header('Content-Type: application/json');
         echo json_encode($totalAmout);
 
-    }   
-    
+    }
+
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
-    }    
+    }
 }
 
 /**
@@ -82,7 +82,7 @@ function allExpenses($month) {
     include './config/config.php';
 
     // Connection
-    $connection = new PDO($dsn, $username, $password, $options);  
+    $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
@@ -96,11 +96,11 @@ function allExpenses($month) {
         $statement->execute($data);
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }   
-    
+    }
+
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
-    }    
+    }
 }
 
 
@@ -110,11 +110,11 @@ function allExpenses($month) {
 *
 */
 function totalSpendCategoryMonth($category, $month) {
-    
+
     include './config/config.php';
 
     // Connection
-    $connection = new PDO($dsn, $username, $password, $options);  
+    $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
@@ -122,20 +122,20 @@ function totalSpendCategoryMonth($category, $month) {
             'month' => $month
         ];
 
-        $sql = "SELECT value 
-                FROM expenses 
-                WHERE category=:category 
+        $sql = "SELECT value
+                FROM expenses
+                WHERE category=:category
                 AND MONTH(date) = :month";
-    
+
         $statement = $connection->prepare($sql);
         $statement->execute($data);
 
         return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }   
-    
+    }
+
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
-    }    
+    }
 }
 
 
@@ -153,15 +153,15 @@ if ($contentType === "application/json") {
   $decoded = json_decode($content, true);
 
   // If json_decode failed, the JSON is invalid.
-  if(is_array($decoded)) {  
+  if(is_array($decoded)) {
     $action = $decoded['data_action'];
     switch($action) {
-        case 'totalAmount': 
+        case 'totalAmount':
             totalAmount(intval($decoded['monthIndex']));
-            break;          
+            break;
         }
     } else {
             // Send error back to user.
             echo 'JSON invalid';
-    }    
+    }
 }

@@ -11,7 +11,8 @@ var expenseTotalValue = document.querySelector('#js-expenseTotal-value');
 
 var monthNames = ["", "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
-]
+];
+
 var date = new Date();
 var monthIndex = date.getMonth() + 1;
 
@@ -35,14 +36,14 @@ function escapeHtml(unsafe) {
 if(currentMonth) {
     currentMonth.innerHTML = monthNames[monthIndex];
     currentMonth.setAttribute('data-month-index', monthIndex);
-};
+}
 
 /**
  * Set the date of today in the datepicker
  */
 if(datePicker) {
     datePicker.valueAsDate = date;
-};
+}
 
 
 // @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
