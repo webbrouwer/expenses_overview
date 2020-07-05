@@ -30,15 +30,20 @@ function escapeHtml(unsafe) {
 
 
 /**
- * Display the current month on the page 
+ * Display the current month on the page
  */
-currentMonth.innerHTML = monthNames[monthIndex];
-currentMonth.setAttribute('data-month-index', monthIndex);
+if(currentMonth) {
+    currentMonth.innerHTML = monthNames[monthIndex];
+    currentMonth.setAttribute('data-month-index', monthIndex);
+};
 
 /**
  * Set the date of today in the datepicker
  */
-datePicker.valueAsDate = date;
+if(datePicker) {
+    datePicker.valueAsDate = date;
+};
+
 
 // @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
 /**
@@ -46,8 +51,8 @@ datePicker.valueAsDate = date;
  */
 function prevMonth() {
     monthIndex = monthIndex - 1;
-    currentMonth.innerHTML = monthNames[monthIndex]; 
-    prevMonthButton.setAttribute('data-month-index', monthIndex);   
+    currentMonth.innerHTML = monthNames[monthIndex];
+    prevMonthButton.setAttribute('data-month-index', monthIndex);
 }
 
 /**
@@ -56,7 +61,7 @@ function prevMonth() {
 function nextMonth() {
     monthIndex = monthIndex + 1;
     currentMonth.innerHTML = monthNames[monthIndex];
-    nextMonthButton.setAttribute('data-month-index', monthIndex);    
+    nextMonthButton.setAttribute('data-month-index', monthIndex);
 }
 
 
@@ -67,9 +72,9 @@ function getMonthlyAmountSpend() {
 
      // Store values of checkbox
      var data = {
-        monthIndex: escapeHtml(event.target.getAttribute('data-month-index')),    
+        monthIndex: escapeHtml(event.target.getAttribute('data-month-index')),
         data_action: 'totalAmount'
-    }; 
+    };
 
     fetch("db-actions.php", {
         method: "POST",
@@ -101,7 +106,7 @@ function firstLoad() {
 
     // Store values of checkbox
     var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),    
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
         data_action: 'totalAmount'
     };
 
@@ -123,7 +128,7 @@ function firstLoad() {
         }
     }).then(function(data) {
         expenseTotalValue.innerHTML = data;
-    }); 
+    });
 
 }
 
@@ -138,7 +143,7 @@ prevMonthButton.addEventListener('click', function (event) {
 
 nextMonthButton.addEventListener('click', function (event) {
     nextMonth();
-    getMonthlyAmountSpend();  
+    getMonthlyAmountSpend();
 }, false);
 
 window.addEventListener('load', function (event) {

@@ -13,7 +13,7 @@ html {
 body {
     min-height: 100%;
     background-color: #17243e;
-    color: #fff;
+    color: white;
     font-size: 125%;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 60px; /* Margin bottom by footer height */
@@ -39,6 +39,10 @@ h2, .h2 {
     margin: 0 0 3em 0;
 }
 
+.col-center {
+    margin: 3em auto;
+}
+
 
 /* ---- Misceallanous ---- */
 button {
@@ -60,7 +64,7 @@ header {
 }
 
 .header-title {
-    display: inline;
+    display: block;
 }
 
 header button {
@@ -69,26 +73,33 @@ header button {
     background-color: transparent;
 }
 
-.header-buttonPrevMonth {
-    right: 20px;
-    bottom: 10px;
+.headerNav-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
-.header-buttonNextMonth {
-    left: 10px;
-    bottom: 10px;
+.headerNav-link {
+    color: white;
+    text-decoration: none;
+    font-style: italic;
+}
+
+.headerNav-link:hover {
+    color: orange;
+    text-decoration: underline;
 }
 
 
 /* ---- footer ---- */
 
-footer { 
+footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 60px; /* Set the fixed height of the footer here */
     line-height: 60px; /* Vertically center the text there */
-    background-color: #17243e;   
+    background-color: #17243e;
     text-align: center;
     font-size: 75%;
 }
@@ -120,9 +131,9 @@ footer a:hover {
 
 .addExpense-button {
     display: block;
-    width: 100%;    
+    width: 100%;
     background-color: orange;
-    color: #fff;
+    color: white;
     font-size: 0.8em;
     text-transform: uppercase;
     padding: 8px 16px;
@@ -188,8 +199,8 @@ input, select {
     margin-bottom: 1em;
 }
 
-/* ================================= 
-  Media Queries 
+/* =================================
+  Media Queries
 ==================================== */
 
 @media (min-width: 737px) {
@@ -200,23 +211,31 @@ input, select {
 
     h2, .h2 {
         font-size: 2em;
-    }    
+    }
+
+    .header-title {
+        min-width: 600px;
+    }
 
     /* ---- Columns layout ---- */
     .container {
         margin: 0 auto;
-        max-width: 1170px;    
+        max-width: 1170px;
     }
 
 	.col {
         float: left;
-        margin: 3em 0 3em 0;        
+        margin: 3em 0 3em 0;
 	}
 
 	.col + .col {
 		padding-left: 1em;
     }
-    
+
+    .col-center {
+        width: 40%;
+    }
+
     .primary {
         width: 40%;
     }
@@ -228,6 +247,18 @@ input, select {
 	.col:last-child {
 		padding-right: 0;
 	}
+
+    /* ---- header ---- */
+
+    .header-buttonPrevMonth {
+        right: 320px;
+        bottom: 54px;
+    }
+
+    .header-buttonNextMonth {
+        left: 320px;
+        bottom: 54px;
+    }
 
 	/* ---- Float clearfix ---- */
 	.clearfix::after {
