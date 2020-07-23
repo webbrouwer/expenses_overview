@@ -69,7 +69,8 @@ function totalAmount($month) {
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
-}
+};
+
 
 /**
 *
@@ -99,40 +100,9 @@ function allExpenses($month) {
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
-}
 
+};
 
-/**
- * Total amount spend for category in specific month
- */
-function totalSpendCategoryMonth($category, $month) {
-
-    include './config/config.php';
-
-    // Connection
-    $connection = new PDO($dsn, $username, $password, $options);
-
-    try {
-        $data = [
-            'category' => $category,
-            'month' => $month
-        ];
-
-        $sql = "SELECT value
-                FROM expenses
-                WHERE category=:category
-                AND MONTH(date) = :month";
-
-        $statement = $connection->prepare($sql);
-        $statement->execute($data);
-
-        return $statement->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    catch(PDOExeption $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
-}
 
 /**
  * Render retrieve and render expenses table
@@ -153,6 +123,33 @@ function expensesTable($month) {
         echo '</tr>';
     }
     echo '</table>';
+
+};
+
+function getAllLabels($month) {
+
+    include './config/config.php';
+
+    // Connection
+    $connection = new PDO($dsn, $username, $password, $options);
+
+    try {
+        $data = [
+            'month' => $month
+        ];
+
+        $sql = "SELECT category FROM expenses
+                WHERE MONTH(date) = :month";
+
+        $statement = $connection->prepare($sql);
+        $statement->execute($data);
+
+        return $statement->fetchAll(PDO::FETCH_COLUMN);
+    }
+
+    catch(PDOExeption $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
 
 };
 
@@ -185,4 +182,4 @@ if ($contentType === "application/json") {
             // Send error back to user.
             echo 'JSON invalid';
     }
-}
+};

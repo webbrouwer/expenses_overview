@@ -1,6 +1,3 @@
-// @TODO
-// use month counter to display different months + their database data
-
 // https://gomakethings.com/vanilla-js-event-delegation-with-a-lot-of-event-handlers-on-one-page/
 var currentMonth = document.querySelector('#js-currentMonth');
 var prevMonthButton = document.querySelector('#js-prevMonth');
@@ -105,37 +102,9 @@ function getMonthlyAmountSpend() {
 
 
 /**
- * Initial load the montly total amount spend
+ * Request expenses table and render
+ * @return {html} html table with montly expenses per category
  */
-function firstLoad() {
-
-    // Store values of checkbox
-    var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
-        data_action: 'totalAmount'
-    };
-
-    fetch("db-actions.php", {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-    },
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        if (response.ok) {
-            // ReadableStream to JSON
-            return response.json();
-        }
-        return Promise.reject(response);
-    }).then(function(data) {
-        expenseTotalValue.innerHTML = data;
-    });
-
-};
-
 function renderExpensesTable() {
 
     // Store values of checkbox
@@ -167,6 +136,41 @@ function renderExpensesTable() {
 };
 
 
+
+var labels = [
+            'Huur',
+            'Boodschappen'
+            ];
+
+var expenses = [10, 20];
+
+var backgroundColors = [
+                'rgba(255, 99, 132)',
+                'rgba(54, 162, 235)'
+            ];
+
+/**
+*
+* Pie chart from chart.js
+*
+*/
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'pie',
+
+    // The data for our dataset
+    data: {
+        labels: labels,
+        datasets: [{
+            data: expenses,
+            backgroundColor: backgroundColors
+        }]
+    },
+
+});
+
+
 /**
  * Event Linsteners
  */
@@ -183,6 +187,6 @@ nextMonthButton.addEventListener('click', function (event) {
 }, false);
 
 window.addEventListener('load', function (event) {
-    firstLoad();
+    getMonthlyAmountSpend();
     renderExpensesTable();
 }, false);

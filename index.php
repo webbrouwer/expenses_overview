@@ -55,6 +55,11 @@ $month = getMonthIndex();
 
             <canvas id="myChart"></canvas>
 
+            <?php $test = getAllLabels(5);
+                echo '<pre>';
+                var_dump($test);
+            ?>
+
         </div>
 
     </div> <!-- /container -->
@@ -64,36 +69,5 @@ $month = getMonthIndex();
     </footer>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
     <script src="./js/main.js"></script>
-    <script>
-
-    /**
-    *
-    * Pie chart from chart.js
-    *
-    */
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'pie',
-
-        // The data for our dataset
-        data: {
-            labels: [
-                'Huur',
-                'Boodschappen'
-            ],
-            datasets: [{
-                data: [10, 20],
-                backgroundColor: [
-                    'rgba(255, 99, 132)',
-                    'rgba(54, 162, 235)'
-                ]
-            }]
-        },
-
-        // Configuration options go here
-        options: {}
-    });
-    </script>
 </body>
 </html>
