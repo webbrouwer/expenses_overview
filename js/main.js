@@ -125,7 +125,7 @@ function renderExpensesTable() {
     }).then(function (response) {
         // check if response is OK, if not error is displayed in .catch
         if (response.ok) {
-            // ReadableStream to JSON
+            // ReadableStream to text
             return response.text();
         }
         return Promise.reject(response);
@@ -135,12 +135,42 @@ function renderExpensesTable() {
 
 };
 
+var labels;
 
+function getLabels() {
+    // Store values of checkbox
+    var data = {
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+        data_action: 'getAllLabels'
+    };
 
-var labels = [
-            'Huur',
-            'Boodschappen'
-            ];
+    fetch("db-actions.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+    },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        if (response.ok) {
+            // ReadableStream to JSON
+            return response.json();
+        }
+        return Promise.reject(response);
+    }).then(function(data) {
+        chart.data.labels = data;
+        chart.update();
+
+    });
+
+};
+
+// var labels = [
+//             'Huur',
+//             'Boodschappen'
+//             ];
 
 var expenses = [10, 20];
 
@@ -178,15 +208,18 @@ prevMonthButton.addEventListener('click', function (event) {
     prevMonth();
     getMonthlyAmountSpend();
     renderExpensesTable();
+    getLabels();
 }, false);
 
 nextMonthButton.addEventListener('click', function (event) {
     nextMonth();
     getMonthlyAmountSpend();
     renderExpensesTable();
+    getLabels();
 }, false);
 
 window.addEventListener('load', function (event) {
     getMonthlyAmountSpend();
     renderExpensesTable();
+    getLabels();
 }, false);

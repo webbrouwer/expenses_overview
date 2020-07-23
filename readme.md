@@ -25,6 +25,4 @@
 
  ## TODO
 
- * Add userMonthIndex to localStorage / cookie.
- * Reload page on prev or next month.
- * Use userMonthIndex on page load to load data in all expenses and pie chart.
+[] Dynamicly fill pie chart for selected month

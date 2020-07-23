@@ -126,6 +126,12 @@ function expensesTable($month) {
 
 };
 
+
+/**
+ * Get all labels for the month and delete duplicates
+ * @param  int $month the month index
+ * @return array        array of unique labels
+ */
 function getAllLabels($month) {
 
     include './config/config.php';
@@ -144,12 +150,21 @@ function getAllLabels($month) {
         $statement = $connection->prepare($sql);
         $statement->execute($data);
 
-        return $statement->fetchAll(PDO::FETCH_COLUMN);
+        $allLabels = array_unique($statement->fetchAll(PDO::FETCH_COLUMN));
+
+        header('Content-Type: application/json');
+        echo json_encode($allLabels);
+
     }
 
     catch(PDOExeption $error) {
         echo $sql . "<br>" . $error->getMessage();
     }
+
+};
+
+// @TODO: calculate expense per label / category and return for use in Pie Chart
+function getExpenseForLabel($month) {
 
 };
 
@@ -176,6 +191,9 @@ if ($contentType === "application/json") {
             break;
         case 'expensesTable':
             expensesTable(intval($decoded['monthIndex']));
+            break;
+        case 'getAllLabels':
+            getAllLabels(intval($decoded['monthIndex']));
             break;
         }
     } else {

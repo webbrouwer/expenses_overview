@@ -55,11 +55,6 @@ $month = getMonthIndex();
 
             <canvas id="myChart"></canvas>
 
-            <?php $test = getAllLabels(5);
-                echo '<pre>';
-                var_dump($test);
-            ?>
-
         </div>
 
     </div> <!-- /container -->
