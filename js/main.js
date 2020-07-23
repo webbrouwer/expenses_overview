@@ -71,7 +71,6 @@ function nextMonth() {
  */
 function getMonthlyAmountSpend() {
 
-     // Store values of checkbox
      var data = {
         monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
         data_action: 'totalAmount'
@@ -107,7 +106,6 @@ function getMonthlyAmountSpend() {
  */
 function renderExpensesTable() {
 
-    // Store values of checkbox
     var data = {
         monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
         data_action: 'expensesTable'
@@ -136,9 +134,10 @@ function renderExpensesTable() {
 };
 
 var labels;
+var expenses;
 
 function getLabels() {
-    // Store values of checkbox
+
     var data = {
         monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
         data_action: 'getAllLabels'
@@ -162,7 +161,39 @@ function getLabels() {
     }).then(function(data) {
         chart.data.labels = data;
         chart.update();
+    });
 
+};
+
+
+function getExpenseLabel() {
+
+    var data = {
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+        data_action: 'getExpenseForLabel'
+    };
+
+    fetch("db-actions.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+    },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        if (response.ok) {
+            // ReadableStream to JSON
+            return response.json();
+        }
+        return Promise.reject(response);
+    }).then(function(expensesAndLabels) {
+        // @TODO: fix recursive adding when switching months
+        chart.data.datasets.forEach((dataset, index) => {
+            dataset.data.push(expensesAndLabels[index].totalAmount);
+        });
+        chart.update();
     });
 
 };
@@ -172,11 +203,12 @@ function getLabels() {
 //             'Boodschappen'
 //             ];
 
-var expenses = [10, 20];
+// var expenses = [300];
 
 var backgroundColors = [
                 'rgba(255, 99, 132)',
-                'rgba(54, 162, 235)'
+                'rgba(54, 162, 235)',
+                'rgba(54, 162, 0)'
             ];
 
 /**
@@ -209,6 +241,7 @@ prevMonthButton.addEventListener('click', function (event) {
     getMonthlyAmountSpend();
     renderExpensesTable();
     getLabels();
+    getExpenseLabel();
 }, false);
 
 nextMonthButton.addEventListener('click', function (event) {
@@ -216,10 +249,12 @@ nextMonthButton.addEventListener('click', function (event) {
     getMonthlyAmountSpend();
     renderExpensesTable();
     getLabels();
+    getExpenseLabel();
 }, false);
 
 window.addEventListener('load', function (event) {
     getMonthlyAmountSpend();
     renderExpensesTable();
     getLabels();
+    getExpenseLabel();
 }, false);

@@ -164,7 +164,37 @@ function getAllLabels($month) {
 };
 
 // @TODO: calculate expense per label / category and return for use in Pie Chart
+// https://www.mysqltutorial.org/mysql-rollup/
 function getExpenseForLabel($month) {
+
+    include './config/config.php';
+
+    // Connection
+    $connection = new PDO($dsn, $username, $password, $options);
+
+    try {
+        $data = [
+            'month' => $month
+        ];
+
+        $sql = "SELECT category, SUM(value) totalAmount
+                FROM expenses
+                WHERE MONTH(date) = :month
+                GROUP BY category";
+
+        $statement = $connection->prepare($sql);
+        $statement->execute($data);
+
+        $expenseForLabel = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        header('Content-Type: application/json');
+        echo json_encode($expenseForLabel);
+
+    }
+
+    catch(PDOExeption $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
 
 };
 
@@ -194,6 +224,9 @@ if ($contentType === "application/json") {
             break;
         case 'getAllLabels':
             getAllLabels(intval($decoded['monthIndex']));
+            break;
+        case 'getExpenseForLabel':
+            getExpenseForLabel(intval($decoded['monthIndex']));
             break;
         }
     } else {

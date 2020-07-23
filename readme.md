@@ -25,4 +25,4 @@
 
  ## TODO
 
-[] Dynamicly fill pie chart for selected month
+[] fix recursive adding when switching months
