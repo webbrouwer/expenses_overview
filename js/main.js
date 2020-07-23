@@ -9,6 +9,8 @@ var datePicker = document.querySelector('#js-datePicker');
 
 var expenseTotalValue = document.querySelector('#js-expenseTotal-value');
 
+var expensesTable = document.querySelector('#expensesTable');
+
 var monthNames = ["", "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
@@ -27,7 +29,7 @@ function escapeHtml(unsafe) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-}
+};
 
 
 /**
@@ -36,14 +38,15 @@ function escapeHtml(unsafe) {
 if(currentMonth) {
     currentMonth.innerHTML = monthNames[monthIndex];
     currentMonth.setAttribute('data-month-index', monthIndex);
-}
+};
+
 
 /**
  * Set the date of today in the datepicker
  */
 if(datePicker) {
     datePicker.valueAsDate = date;
-}
+};
 
 
 // @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
@@ -53,8 +56,8 @@ if(datePicker) {
 function prevMonth() {
     monthIndex = monthIndex - 1;
     currentMonth.innerHTML = monthNames[monthIndex];
-    prevMonthButton.setAttribute('data-month-index', monthIndex);
-}
+    currentMonth.setAttribute('data-month-index', monthIndex);
+};
 
 /**
  * Change the month to the next month
@@ -62,8 +65,8 @@ function prevMonth() {
 function nextMonth() {
     monthIndex = monthIndex + 1;
     currentMonth.innerHTML = monthNames[monthIndex];
-    nextMonthButton.setAttribute('data-month-index', monthIndex);
-}
+    currentMonth.setAttribute('data-month-index', monthIndex);
+};
 
 
 /**
@@ -73,7 +76,7 @@ function getMonthlyAmountSpend() {
 
      // Store values of checkbox
      var data = {
-        monthIndex: escapeHtml(event.target.getAttribute('data-month-index')),
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
         data_action: 'totalAmount'
     };
 
@@ -82,7 +85,8 @@ function getMonthlyAmountSpend() {
         mode: "same-origin",
         credentials: "same-origin",
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
     },
         body: JSON.stringify(data)
     }).then(function (response) {
@@ -97,7 +101,7 @@ function getMonthlyAmountSpend() {
         expenseTotalValue.innerHTML = data;
     });
 
-}
+};
 
 
 /**
@@ -116,22 +120,51 @@ function firstLoad() {
         mode: "same-origin",
         credentials: "same-origin",
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+    },
+        body: JSON.stringify(data)
+    }).then(function (response) {
+        if (response.ok) {
+            // ReadableStream to JSON
+            return response.json();
+        }
+        return Promise.reject(response);
+    }).then(function(data) {
+        expenseTotalValue.innerHTML = data;
+    });
+
+};
+
+function renderExpensesTable() {
+
+    // Store values of checkbox
+    var data = {
+        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+        data_action: 'expensesTable'
+    };
+
+    fetch("db-actions.php", {
+        method: "POST",
+        mode: "same-origin",
+        credentials: "same-origin",
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
     },
         body: JSON.stringify(data)
     }).then(function (response) {
         // check if response is OK, if not error is displayed in .catch
         if (response.ok) {
             // ReadableStream to JSON
-            return response.json();
-        } else {
-            return Promise.reject(response);
+            return response.text();
         }
+        return Promise.reject(response);
     }).then(function(data) {
-        expenseTotalValue.innerHTML = data;
+        expensesTable.innerHTML = data;
     });
 
-}
+};
 
 
 /**
@@ -140,13 +173,16 @@ function firstLoad() {
 prevMonthButton.addEventListener('click', function (event) {
     prevMonth();
     getMonthlyAmountSpend();
+    renderExpensesTable();
 }, false);
 
 nextMonthButton.addEventListener('click', function (event) {
     nextMonth();
     getMonthlyAmountSpend();
+    renderExpensesTable();
 }, false);
 
 window.addEventListener('load', function (event) {
     firstLoad();
+    renderExpensesTable();
 }, false);

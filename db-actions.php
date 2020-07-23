@@ -3,10 +3,8 @@
 require './config/config.php';
 
 /**
-*
-* Add to DB
-*
-*/
+ * Add to DB
+ */
 if (isset($_REQUEST['add-expense'])) {
     // Collect variables form form
     $value = htmlspecialchars($_POST['value'], ENT_QUOTES, 'utf-8');
@@ -105,10 +103,8 @@ function allExpenses($month) {
 
 
 /**
-*
-* Total amount spend for category in specific month
-*
-*/
+ * Total amount spend for category in specific month
+ */
 function totalSpendCategoryMonth($category, $month) {
 
     include './config/config.php';
@@ -138,26 +134,51 @@ function totalSpendCategoryMonth($category, $month) {
     }
 }
 
+/**
+ * Render retrieve and render expenses table
+ * @return html the html for the expenses table
+ */
+function expensesTable($month) {
+    $expenses = allExpenses($month);
+
+    echo '<table class="expensesTable">
+            <thead>
+                <td>Amount</td>
+                <td>Category</td>
+            </thead>';
+    foreach ($expenses as $expense) {
+        echo '<tr>';
+        echo  '<td>€' . $expense["value"] . '</td>';
+        echo  '<td class="expensesTable-expensesTableCategory">' . $expense["category"] . '</td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+
+};
+
 
 /**
-*
-* Receive clicked data from JS AJAX
-*
-*/
-
+ * Receive clicked data from JS AJAX
+ */
 $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
 
 if ($contentType === "application/json") {
-  //Receive the RAW post data.
-  $content = trim(file_get_contents("php://input"));
-  $decoded = json_decode($content, true);
+    //Receive the RAW post data.
 
-  // If json_decode failed, the JSON is invalid.
-  if(is_array($decoded)) {
-    $action = $decoded['data_action'];
+    $content = trim(file_get_contents("php://input"));
+    // var_dump($content);
+    $decoded = json_decode($content, true);
+    // var_dump($decoded);
+
+    // If json_decode failed, the JSON is invalid.
+    if(is_array($decoded)) {
+        $action = $decoded['data_action'];
     switch($action) {
         case 'totalAmount':
             totalAmount(intval($decoded['monthIndex']));
+            break;
+        case 'expensesTable':
+            expensesTable(intval($decoded['monthIndex']));
             break;
         }
     } else {

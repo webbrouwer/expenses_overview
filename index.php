@@ -1,13 +1,15 @@
 <?php
-// Silky smooth functions
-require "./db-actions.php";
-require "./functions.php";
+/**
+ * Silky smooth functions
+ */
+include "./db-actions.php";
+include "./functions.php";
 
 $month = getMonthIndex();
 
 ?>
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,23 +40,11 @@ $month = getMonthIndex();
 
         <div class="col primary">
 
-            <!-- @TODO: render allExpenses for the month that is selected -->
             <div class="allExpenses">
-            <?php $expenses = allExpenses($month); ?>
                 <h2>All Expenses</h2>
 
-                <table class="expensesTable">
-                    <thead>
-                        <td>Amount</td>
-                        <td>Category</td>
-                    </thead>
-                    <?php foreach ($expenses as $expense) { ?>
-                    <tr>
-                        <td><?php echo '€' . $expense['value'];  ?></td>
-                        <td class="expensesTable-expensesTableCategory"><?php echo $expense['category']; ?></td>
-                    </tr>
-                    <?php  } ?>
-                </table>
+                <div id="expensesTable"></div>
+
             </div> <!-- allExpenses -->
 
         </div>
@@ -76,7 +66,6 @@ $month = getMonthIndex();
     <script src="./js/main.js"></script>
     <script>
 
-    <?php $result = totalSpendCategoryMonth('huur', $month); ?>
     /**
     *
     * Pie chart from chart.js
