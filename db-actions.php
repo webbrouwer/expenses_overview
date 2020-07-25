@@ -127,42 +127,6 @@ function expensesTable($month) {
 };
 
 
-/**
- * Get all labels for the month and delete duplicates
- * @param  int $month the month index
- * @return array        array of unique labels
- */
-function getAllLabels($month) {
-
-    include './config/config.php';
-
-    // Connection
-    $connection = new PDO($dsn, $username, $password, $options);
-
-    try {
-        $data = [
-            'month' => $month
-        ];
-
-        $sql = "SELECT category FROM expenses
-                WHERE MONTH(date) = :month";
-
-        $statement = $connection->prepare($sql);
-        $statement->execute($data);
-
-        $allLabels = array_unique($statement->fetchAll(PDO::FETCH_COLUMN));
-
-        header('Content-Type: application/json');
-        echo json_encode($allLabels);
-
-    }
-
-    catch(PDOExeption $error) {
-        echo $sql . "<br>" . $error->getMessage();
-    }
-
-};
-
 // @TODO: calculate expense per label / category and return for use in Pie Chart
 // https://www.mysqltutorial.org/mysql-rollup/
 function getExpenseForLabel($month) {
@@ -206,7 +170,6 @@ $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) 
 
 if ($contentType === "application/json") {
     //Receive the RAW post data.
-
     $content = trim(file_get_contents("php://input"));
     // var_dump($content);
     $decoded = json_decode($content, true);

@@ -25,4 +25,8 @@
 
  ## TODO
 
-[] fix recursive adding when switching months
+[x] fix recursive adding when switching months
+[] create delete function for expense
+[] make custom adding expense category possible
+[] fix month counting, include years.
+[] refactor

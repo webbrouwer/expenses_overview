@@ -1,4 +1,7 @@
-// https://gomakethings.com/vanilla-js-event-delegation-with-a-lot-of-event-handlers-on-one-page/
+//
+// Variables
+//
+
 var currentMonth = document.querySelector('#js-currentMonth');
 var prevMonthButton = document.querySelector('#js-prevMonth');
 var nextMonthButton = document.querySelector('#js-nextMonth');
@@ -15,6 +18,17 @@ var monthNames = ["", "January", "February", "March", "April", "May", "June",
 var date = new Date();
 var monthIndex = date.getMonth() + 1;
 
+// Background colors labels in Pie Chart
+var backgroundColors = [
+    'rgba(255, 99, 132)',
+    'rgba(54, 162, 235)',
+    'rgba(54, 162, 0)'
+];
+
+
+//
+// Methods
+//
 
 /**
  * Escape input
@@ -46,23 +60,27 @@ if(datePicker) {
 };
 
 
-// @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
-/**
- * Change the month to the previous month
- */
-function prevMonth() {
-    monthIndex = monthIndex - 1;
-    currentMonth.innerHTML = monthNames[monthIndex];
-    currentMonth.setAttribute('data-month-index', monthIndex);
-};
-
 /**
  * Change the month to the next month
  */
-function nextMonth() {
-    monthIndex = monthIndex + 1;
+// @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
+function clickHandler() {
+
+    if(!event.target.matches('#js-prevMonth, #js-nextMonth')) return;
+
+    if(event.target.matches('#js-nextMonth')) {
+        monthIndex = monthIndex + 1;
+    } else if(event.target.matches('#js-prevMonth')) {
+        monthIndex = monthIndex - 1;
+    }
+
     currentMonth.innerHTML = monthNames[monthIndex];
     currentMonth.setAttribute('data-month-index', monthIndex);
+
+    getMonthlyAmountSpend();
+    renderExpensesTable();
+    getExpenseForLabel();
+
 };
 
 
@@ -133,40 +151,56 @@ function renderExpensesTable() {
 
 };
 
-var labels;
-var expenses;
 
-function getLabels() {
-
-    var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
-        data_action: 'getAllLabels'
-    };
-
-    fetch("db-actions.php", {
-        method: "POST",
-        mode: "same-origin",
-        credentials: "same-origin",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-    },
-        body: JSON.stringify(data)
-    }).then(function (response) {
-        if (response.ok) {
-            // ReadableStream to JSON
-            return response.json();
-        }
-        return Promise.reject(response);
-    }).then(function(data) {
-        chart.data.labels = data;
-        chart.update();
-    });
-
+/**
+ * Clear and reset the charts canvas
+ */
+function resetChartCanvas() {
+    // Get chart container and reset it, bugfix for showing previous chart on hover
+    document.querySelector('#chartContainer').innerHTML = '';
+    document.querySelector('#chartContainer').innerHTML = '<canvas id="myChart"></canvas>';
 };
 
 
-function getExpenseLabel() {
+/**
+ * Create and render the Pie Chart
+ * @param  {array} expensesAndLabels the labels and corresponding expenses
+ * @return {Pie chart}               Returns the Pie chart
+ */
+function renderPieChart(expensesAndLabels) {
+    // Init and reset labels for first load and selected months
+    var labels = [];
+    var expenses = [];
+
+    // Push data values to labels and expenses
+    expensesAndLabels.forEach(function (expense, index) {
+        labels.push(expensesAndLabels[index].category)
+        expenses.push(expensesAndLabels[index].totalAmount);
+    });
+
+    // Build chart and add options and data
+    var ctx = document.querySelector("#myChart").getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+
+        // The data for our dataset
+        data: {
+            labels: labels,
+            datasets: [{
+                data: expenses,
+                backgroundColor: backgroundColors
+            }]
+        },
+
+    });
+};
+
+
+/**
+ * Fetch the expenses for the labels from the database via PHP
+ */
+function getExpenseForLabel() {
 
     var data = {
         monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
@@ -189,72 +223,21 @@ function getExpenseLabel() {
         }
         return Promise.reject(response);
     }).then(function(expensesAndLabels) {
-        // @TODO: fix recursive adding when switching months
-        chart.data.datasets.forEach((dataset, index) => {
-            dataset.data.push(expensesAndLabels[index].totalAmount);
-        });
-        chart.update();
+        resetChartCanvas();
+        renderPieChart(expensesAndLabels);
     });
 
 };
 
-// var labels = [
-//             'Huur',
-//             'Boodschappen'
-//             ];
 
-// var expenses = [300];
+//
+// Event listeners
+//
 
-var backgroundColors = [
-                'rgba(255, 99, 132)',
-                'rgba(54, 162, 235)',
-                'rgba(54, 162, 0)'
-            ];
-
-/**
-*
-* Pie chart from chart.js
-*
-*/
-var ctx = document.getElementById('myChart').getContext('2d');
-var chart = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'pie',
-
-    // The data for our dataset
-    data: {
-        labels: labels,
-        datasets: [{
-            data: expenses,
-            backgroundColor: backgroundColors
-        }]
-    },
-
-});
-
-
-/**
- * Event Linsteners
- */
-prevMonthButton.addEventListener('click', function (event) {
-    prevMonth();
-    getMonthlyAmountSpend();
-    renderExpensesTable();
-    getLabels();
-    getExpenseLabel();
-}, false);
-
-nextMonthButton.addEventListener('click', function (event) {
-    nextMonth();
-    getMonthlyAmountSpend();
-    renderExpensesTable();
-    getLabels();
-    getExpenseLabel();
-}, false);
+document.addEventListener('click', clickHandler, false);
 
 window.addEventListener('load', function (event) {
     getMonthlyAmountSpend();
     renderExpensesTable();
-    getLabels();
-    getExpenseLabel();
+    getExpenseForLabel();
 }, false);

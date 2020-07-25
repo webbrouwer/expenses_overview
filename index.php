@@ -53,7 +53,9 @@ $month = getMonthIndex();
             <!-- @TODO: render the pie for the values of the month that is selected -->
             <h2 class="expenseChart-title">Expenses Pie Chart</h2>
 
-            <canvas id="myChart"></canvas>
+            <div id="chartContainer">
+                <canvas id="myChart"></canvas>
+            </div>
 
         </div>
 
