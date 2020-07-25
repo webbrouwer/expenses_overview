@@ -22,7 +22,14 @@ var monthIndex = date.getMonth() + 1;
 var backgroundColors = [
     'rgba(255, 99, 132)',
     'rgba(54, 162, 235)',
-    'rgba(54, 162, 0)'
+    'rgba(54, 162, 0)',
+    'rgba(54, 40, 100)',
+    'rgba(0, 67, 122)',
+    'rgba(182, 10, 200)',
+    'rgba(12, 200, 176)',
+    'rgba(201, 28, 10)',
+    'rgba(181, 69, 14)',
+    'rgba(100, 200, 114)'
 ];
 
 
@@ -168,17 +175,18 @@ function resetChartCanvas() {
  * @return {Pie chart}               Returns the Pie chart
  */
 function renderPieChart(expensesAndLabels) {
-    // Init and reset labels for first load and selected months
+
+    // Init and reset labels for first load and selected month
     var labels = [];
     var expenses = [];
 
-    // Push data values to labels and expenses
+    // Push expensesAndLabels values to labels and expenses for Pie Chart data
     expensesAndLabels.forEach(function (expense, index) {
         labels.push(expensesAndLabels[index].category)
         expenses.push(expensesAndLabels[index].totalAmount);
     });
 
-    // Build chart and add options and data
+    // Build chart with label and expenses values
     var ctx = document.querySelector("#myChart").getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create

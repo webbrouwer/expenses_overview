@@ -185,9 +185,6 @@ if ($contentType === "application/json") {
         case 'expensesTable':
             expensesTable(intval($decoded['monthIndex']));
             break;
-        case 'getAllLabels':
-            getAllLabels(intval($decoded['monthIndex']));
-            break;
         case 'getExpenseForLabel':
             getExpenseForLabel(intval($decoded['monthIndex']));
             break;

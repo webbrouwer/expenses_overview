@@ -37,8 +37,17 @@ $month = getMonthIndex();
 
                     <label class="addExpense-inputLabel" for="category">Category</label>
                     <select class="addExpense-input" name="category" id="category">
+                        <option>Select category</option>
                         <option value="rent">Rent</option>
+                        <option value="savings">Savings</option>
+                        <option value="phone">Phone bill</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="eating outdoor">Eating outdoor</option>
+                        <option value="lunch">Lunch</option>
                         <option value="groceries">Groceries</option>
+                        <option value="coffee">Coffee</option>
+                        <option value="fun">Fun, going out</option>
+                        <option value="other">Other</option>
                     </select>
 
                     <label class="addExpense-inputLabel" for="date">Date</label>
