@@ -32,7 +32,7 @@ if (isset($_REQUEST['add-expense'])) {
     }
 
     header('location: ' . $homeUrl);
-}
+};
 
 
 /**
@@ -59,10 +59,10 @@ function totalAmount($month) {
 
         $allSpendings = $statement->fetchAll(PDO::FETCH_COLUMN);
 
-        $totalAmout = array_sum($allSpendings);
+        $totalAmount = array_sum($allSpendings);
 
         header('Content-Type: application/json');
-        echo json_encode($totalAmout);
+        echo json_encode($totalAmount);
 
     }
 
@@ -111,7 +111,10 @@ function allExpenses($month) {
 function expensesTable($month) {
     $expenses = allExpenses($month);
 
-    echo '<table class="expensesTable">
+    if($expenses)
+
+    echo '<h2>All Expenses</h2>
+            <table class="expensesTable">
             <thead>
                 <td>Amount</td>
                 <td>Category</td>

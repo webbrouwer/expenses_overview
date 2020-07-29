@@ -33,7 +33,7 @@ $month = getMonthIndex();
 
             <div class="expenseTotal">
                 <p class="expenseTotal-text">
-                    <span class="expenseTotal-text--strong">Total:</span> €<span id="js-expenseTotal-value"></span>,-
+                    <span class="expenseTotal-text--strong">Total:</span> <span id="js-expenseTotal-value"></span>
                 </p>
             </div>
         </header>
@@ -41,7 +41,6 @@ $month = getMonthIndex();
         <div class="col primary">
 
             <div class="allExpenses">
-                <h2>All Expenses</h2>
 
                 <div id="expensesTable"></div>
 
@@ -50,7 +49,6 @@ $month = getMonthIndex();
         </div>
 
         <div class="col secundairy expenseChart">
-            <!-- @TODO: render the pie for the values of the month that is selected -->
             <h2 class="expenseChart-title">Expenses Pie Chart</h2>
 
             <div id="chartContainer">

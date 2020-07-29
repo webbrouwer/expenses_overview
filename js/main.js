@@ -32,6 +32,7 @@ var backgroundColors = [
     'rgba(100, 200, 114)'
 ];
 
+var expenseChartTitle = document.querySelector('.expenseChart-title');
 
 //
 // Methods
@@ -119,7 +120,11 @@ function getMonthlyAmountSpend() {
             return Promise.reject(response);
         }
     }).then(function(data) {
-        expenseTotalValue.innerHTML = data;
+        if(data === 0) {
+            expenseTotalValue.innerHTML = 'No data available, <a href="./add-expense.php">add expense</a>.';
+        } else {
+            expenseTotalValue.innerHTML = '€' + data + ',-';
+        }
     });
 
 };
@@ -202,6 +207,15 @@ function renderPieChart(expensesAndLabels) {
         },
 
     });
+
+    if(typeof expensesAndLabels !== 'undefined' && expensesAndLabels.length > 0) {
+        expenseChartTitle.classList.add('display');
+        expenseChartTitle.classList.remove('hidden');
+    } else {
+        expenseChartTitle.classList.remove('display');
+        expenseChartTitle.classList.add('hidden');
+    }
+
 };
 
 
@@ -232,14 +246,15 @@ function getExpenseForLabel() {
         return Promise.reject(response);
     }).then(function(expensesAndLabels) {
         resetChartCanvas();
-        renderPieChart(expensesAndLabels);
+        if(expensesAndLabels)
+            renderPieChart(expensesAndLabels);
     });
 
 };
 
 
 //
-// Event listeners
+// Inits & Event listeners
 //
 
 document.addEventListener('click', clickHandler, false);
