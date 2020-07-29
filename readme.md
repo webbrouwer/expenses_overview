@@ -31,5 +31,5 @@
 [] fix month counting, include years.
 [] refactor
 [] feedback for empty of faults in add expense form
-[] display message if no data is present for selected month view
+[x] display message if no data is present for selected month view
 [] export db to save it locally or in repo
