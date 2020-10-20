@@ -28,7 +28,7 @@
 
  ## TODO
 
-- [ ] make custom adding expense category possible
+- [x] make custom adding expense category possible
 - [ ] fix month counting, include years.
 - [x] feedback for empty of faults in add expense form
 - [ ] Add accounts and login

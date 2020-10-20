@@ -35,20 +35,20 @@ $month = getMonthIndex();
                     <label class="addExpense-inputLabel" for="value">Amount</label>
                     <input class="addExpense-input" type="number" name="value" id="value" required>
 
-                    <label class="addExpense-inputLabel" for="category">Category</label>
-                    <select class="addExpense-input" name="category" id="category" required>
-                        <option value="" disabled selected hidden>Select category</option>
-                        <option value="rent">Rent</option>
-                        <option value="savings">Savings</option>
-                        <option value="phone">Phone bill</option>
-                        <option value="insurance">Insurance</option>
-                        <option value="eating outdoor">Eating outdoor</option>
-                        <option value="lunch">Lunch</option>
-                        <option value="groceries">Groceries</option>
-                        <option value="coffee">Coffee</option>
-                        <option value="fun">Fun, going out</option>
-                        <option value="other">Other</option>
-                    </select>
+                    <label class="addExpense-inputLabel">Category</label>
+                    <input class="addExpense-input" type="text" name="category" list="category" placeholder="Select or add category" required />
+                    <datalist id="category">
+                            <option>Rent</option>
+                            <option>Savings</option>
+                            <option>Phone bill</option>
+                            <option>Insurance</option>
+                            <option>Eating outdoor</option>
+                            <option>Lunch</option>
+                            <option>Groceries</option>
+                            <option>Coffee</option>
+                            <option>Fun, going out</option>
+                            <option>Other</option>
+                    </datalist>
 
                     <label class="addExpense-inputLabel" for="date">Date</label>
                     <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date" required>
