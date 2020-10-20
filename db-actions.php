@@ -118,14 +118,66 @@ function expensesTable($month) {
             <thead>
                 <td>Amount</td>
                 <td>Category</td>
+                <td></td>
             </thead>';
     foreach ($expenses as $expense) {
         echo '<tr>';
         echo  '<td>€' . $expense["value"] . '</td>';
         echo  '<td class="expensesTable-expensesTableCategory">' . $expense["category"] . '</td>';
+        echo  '<td>
+                <form method="POST">
+                    <input type="hidden" name="expenseId" value="' . $expense["id"] . '">
+                    <button type="submit" name="deleteExpense">X</button>
+                </form>
+               </td>';
         echo '</tr>';
     }
     echo '</table>';
+
+};
+
+
+/**
+ * deleteExpense
+ */
+function deleteExpense($id) {
+    include './config/config.php';
+
+    // Connection
+    $connection = new PDO($dsn, $username, $password, $options);
+
+    try {
+        $data = [
+            'id' => $id
+        ];
+
+        $sql = "DELETE FROM expenses
+                WHERE id = :id";
+
+        $statement = $connection->prepare($sql);
+        $statement->execute($data);
+
+    }
+
+    catch(PDOExeption $error) {
+        echo $sql . "<br>" . $error->getMessage();
+    }
+
+    header('location: ' . $homeUrl);
+
+};
+
+
+/*
+ * If the delete buttons is clicked init delete function
+ */
+if(isset($_POST['deleteExpense'])) {
+
+    // Collect the id from the expenses that is deleted
+    $id = htmlspecialchars($_POST['expenseId'], ENT_QUOTES, 'utf-8');
+
+    // Delete expense
+    deleteExpense($id);
 
 };
 

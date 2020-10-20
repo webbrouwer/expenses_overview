@@ -1,6 +1,6 @@
-CREATE DATABASE expenses_overview_2;
+CREATE DATABASE expenses_overview;
 
-use expenses_overview_2;
+use expenses_overview;
 
 CREATE TABLE expenses (
     id INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,

@@ -20,7 +20,7 @@
  $host      = "localhost";
  $username  = "USERNAME";
  $password  = "PASSWORD";
- $dbname    = "DB_NAME";
+ $dbname    = "expenses_overview";
  $dsn       = "mysql:host=$host;dbname=$dbname";
  $options   = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
 
@@ -28,11 +28,13 @@
 
  ## TODO
 
-- [x] fix init file with clean DB structure :-)
 - [ ] make table names in db-actions variables
-- [x] fix recursive adding when switching months
 - [ ] make custom adding expense category possible
-- [ ] create delete function for expense
 - [ ] fix month counting, include years.
 - [ ] feedback for empty of faults in add expense form
+- [ ] Add accounts and login
+- [ ] Deploy to the world!
+- [x] create delete function for expense
+- [x] fix recursive adding when switching months
+- [x] fix init file with clean DB structure :-)
 - [x] display message if no data is present for selected month view

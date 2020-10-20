@@ -91,7 +91,6 @@ function clickHandler() {
 
 };
 
-
 /**
  * Get the total amount spend for the month index
  */
