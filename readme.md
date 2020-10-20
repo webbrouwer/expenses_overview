@@ -1,6 +1,7 @@
 # Set up
 
 * Create a config/config.php file and insert code from below. Adjust to it your credentials.
+* Visit local HOME_URL/config/install.php to install database
 * Run `npm install`.
 * You are good to go. :+1:
 
@@ -27,7 +28,7 @@
 
  ## TODO
 
-- [ ] fix init file with clean DB structure :-)
+- [x] fix init file with clean DB structure :-)
 - [ ] make table names in db-actions variables
 - [x] fix recursive adding when switching months
 - [ ] make custom adding expense category possible
