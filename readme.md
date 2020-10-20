@@ -5,6 +5,7 @@
 * You are good to go. :+1:
 
 ```php
+<?php
 /**
  * Basic configuration
  *
@@ -21,15 +22,16 @@
  $dbname    = "DB_NAME";
  $dsn       = "mysql:host=$host;dbname=$dbname";
  $options   = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION);
+
  ```
 
  ## TODO
 
+- [ ] fix init file with clean DB structure :-)
+- [ ] make table names in db-actions variables
 - [x] fix recursive adding when switching months
 - [ ] make custom adding expense category possible
 - [ ] create delete function for expense
 - [ ] fix month counting, include years.
-- [ ] refactor
 - [ ] feedback for empty of faults in add expense form
 - [x] display message if no data is present for selected month view
-- [ ] export db to save it locally or in repo
