@@ -28,10 +28,9 @@
 
  ## TODO
 
-- [ ] make table names in db-actions variables
 - [ ] make custom adding expense category possible
 - [ ] fix month counting, include years.
-- [ ] feedback for empty of faults in add expense form
+- [x] feedback for empty of faults in add expense form
 - [ ] Add accounts and login
 - [ ] Deploy to the world!
 - [x] create delete function for expense

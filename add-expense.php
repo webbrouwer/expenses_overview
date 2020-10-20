@@ -33,11 +33,11 @@ $month = getMonthIndex();
 
                 <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
                     <label class="addExpense-inputLabel" for="value">Amount</label>
-                    <input class="addExpense-input" type="number" name="value" id="value">
+                    <input class="addExpense-input" type="number" name="value" id="value" required>
 
                     <label class="addExpense-inputLabel" for="category">Category</label>
-                    <select class="addExpense-input" name="category" id="category">
-                        <option>Select category</option>
+                    <select class="addExpense-input" name="category" id="category" required>
+                        <option value="" disabled selected hidden>Select category</option>
                         <option value="rent">Rent</option>
                         <option value="savings">Savings</option>
                         <option value="phone">Phone bill</option>
@@ -51,7 +51,7 @@ $month = getMonthIndex();
                     </select>
 
                     <label class="addExpense-inputLabel" for="date">Date</label>
-                    <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date">
+                    <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date" required>
 
                     <button class="addExpense-button" type="submit" name="add-expense">Submit</button>
                 </form>
