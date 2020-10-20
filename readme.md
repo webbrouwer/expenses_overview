@@ -28,11 +28,11 @@
 
  ## TODO
 
-- [x] make custom adding expense category possible
 - [ ] fix month counting, include years.
-- [x] feedback for empty of faults in add expense form
 - [ ] Add accounts and login
 - [ ] Deploy to the world!
+- [x] feedback for empty of faults in add expense form
+- [x] make custom adding expense category possible
 - [x] create delete function for expense
 - [x] fix recursive adding when switching months
 - [x] fix init file with clean DB structure :-)
