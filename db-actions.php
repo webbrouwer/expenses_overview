@@ -40,7 +40,7 @@ if (isset($_REQUEST['add-expense'])) {
  * @param  [type] $month [description]
  * @return [type]        [description]
  */
-function totalAmount($month) {
+function totalAmount($month, $year) {
     include './config/config.php';
 
     // Connection
@@ -48,11 +48,13 @@ function totalAmount($month) {
 
     try {
         $data = [
-            'month' => $month
+            'month' => $month,
+            'year' => $year
         ];
 
         $sql = "SELECT value FROM expenses
-                WHERE MONTH(date) = :month";
+                WHERE YEAR(Date) = :year
+                AND MONTH(Date) = :month";
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
@@ -77,7 +79,7 @@ function totalAmount($month) {
 * All expenses
 *
 */
-function allExpenses($month) {
+function allExpenses($month, $year) {
     include './config/config.php';
 
     // Connection
@@ -85,11 +87,13 @@ function allExpenses($month) {
 
     try {
         $data = [
-            'month' => $month
+            'month' => $month,
+            'year' => $year
         ];
 
         $sql = "SELECT * FROM expenses
-                WHERE MONTH(date) = :month";
+                WHERE YEAR(Date) = :year
+                AND MONTH(Date) = :month";
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
@@ -108,8 +112,8 @@ function allExpenses($month) {
  * Render retrieve and render expenses table
  * @return html the html for the expenses table
  */
-function expensesTable($month) {
-    $expenses = allExpenses($month);
+function expensesTable($month, $year) {
+    $expenses = allExpenses($month, $year);
 
     if($expenses)
 
@@ -184,7 +188,7 @@ if(isset($_POST['deleteExpense'])) {
 
 // @TODO: calculate expense per label / category and return for use in Pie Chart
 // https://www.mysqltutorial.org/mysql-rollup/
-function getExpenseForLabel($month) {
+function getExpenseForLabel($month, $year) {
 
     include './config/config.php';
 
@@ -193,12 +197,14 @@ function getExpenseForLabel($month) {
 
     try {
         $data = [
-            'month' => $month
+            'month' => $month,
+            'year' => $year
         ];
 
-        $sql = "SELECT category, SUM(value) totalAmount
+         $sql = "SELECT category, SUM(value) totalAmount
                 FROM expenses
-                WHERE MONTH(date) = :month
+                WHERE MONTH(Date) = :month
+                AND YEAR(Date) = :year
                 GROUP BY category";
 
         $statement = $connection->prepare($sql);
@@ -235,13 +241,13 @@ if ($contentType === "application/json") {
         $action = $decoded['data_action'];
     switch($action) {
         case 'totalAmount':
-            totalAmount(intval($decoded['monthIndex']));
+            totalAmount(intval($decoded['date_month']), intval($decoded['date_year']));
             break;
         case 'expensesTable':
-            expensesTable(intval($decoded['monthIndex']));
+            expensesTable(intval($decoded['date_month']), intval($decoded['date_year']));
             break;
         case 'getExpenseForLabel':
-            getExpenseForLabel(intval($decoded['monthIndex']));
+            getExpenseForLabel(intval($decoded['date_month']), intval($decoded['date_year']));
             break;
         }
     } else {

@@ -28,7 +28,7 @@
 
  ## TODO
 
-- [ ] fix month counting, include years.
+- [x] fix month counting, include years.
 - [ ] Add accounts and login
 - [ ] Deploy to the world!
 - [x] feedback for empty of faults in add expense form

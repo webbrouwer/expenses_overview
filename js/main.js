@@ -2,11 +2,6 @@
 // Variables
 //
 
-var a = moment().format('MMMM Do YYYY, h:mm:ss a'); // October 23rd 2020, 9:30:12 pm
-
-console.log(a);
-
-
 var currentMonth = document.querySelector('#js-currentMonth');
 var prevMonthButton = document.querySelector('#js-prevMonth');
 var nextMonthButton = document.querySelector('#js-nextMonth');
@@ -16,12 +11,8 @@ var expenseTotalValue = document.querySelector('#js-expenseTotal-value');
 
 var expensesTable = document.querySelector('#expensesTable');
 
-var monthNames = ["", "January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
-];
-
-var date = new Date();
-var monthIndex = date.getMonth() + 1;
+var date = moment().format('MMM YYYY');
+// var monthIndex = date.getMonth() + 1;
 
 // Background colors labels in Pie Chart
 var backgroundColors = [
@@ -60,8 +51,7 @@ function escapeHtml(unsafe) {
  * Display the current month on the page
  */
 if(currentMonth) {
-    currentMonth.innerHTML = monthNames[monthIndex];
-    currentMonth.setAttribute('data-month-index', monthIndex);
+    currentMonth.innerHTML = date;
 };
 
 
@@ -69,26 +59,25 @@ if(currentMonth) {
  * Set the date of today in the datepicker
  */
 if(datePicker) {
-    datePicker.valueAsDate = date;
+    today = new Date();
+    datePicker.valueAsDate = today;
 };
 
 
 /**
  * Change the month to the next month
  */
-// @TODO: refactor monthIndex to make it year proof, maybe use setMonth() ??
 function clickHandler() {
 
     if(!event.target.matches('#js-prevMonth, #js-nextMonth')) return;
 
     if(event.target.matches('#js-nextMonth')) {
-        monthIndex = monthIndex + 1;
+        date = moment(date).add(1, 'M').format('MMM YYYY');
     } else if(event.target.matches('#js-prevMonth')) {
-        monthIndex = monthIndex - 1;
+        date = moment(date).subtract(1, 'M').format('MMM YYYY');
     }
 
-    currentMonth.innerHTML = monthNames[monthIndex];
-    currentMonth.setAttribute('data-month-index', monthIndex);
+    currentMonth.innerHTML = date;
 
     getMonthlyAmountSpend();
     renderExpensesTable();
@@ -101,8 +90,12 @@ function clickHandler() {
  */
 function getMonthlyAmountSpend() {
 
-     var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+    dateMonth = moment(date).format('M');
+    dateYear = moment(date).format('YYYY');
+
+    var data = {
+        date_month: dateMonth,
+        date_year: dateYear,
         data_action: 'totalAmount'
     };
 
@@ -112,7 +105,7 @@ function getMonthlyAmountSpend() {
         credentials: "same-origin",
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            // 'Accept': 'application/json'
     },
         body: JSON.stringify(data)
     }).then(function (response) {
@@ -124,10 +117,10 @@ function getMonthlyAmountSpend() {
             return Promise.reject(response);
         }
     }).then(function(data) {
-        if(data === 0) {
-            expenseTotalValue.innerHTML = 'No data available, <a href="./add-expense.php">add expense</a>.';
-        } else {
+        if(data) {
             expenseTotalValue.innerHTML = '€' + data + ',-';
+        } else {
+            expenseTotalValue.innerHTML = 'No data available, <a href="./add-expense.php">add expense</a>.';
         }
     });
 
@@ -140,8 +133,12 @@ function getMonthlyAmountSpend() {
  */
 function renderExpensesTable() {
 
+    dateMonth = moment(date).format('M');
+    dateYear = moment(date).format('YYYY');
+
     var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+        date_month: dateMonth,
+        date_year: dateYear,
         data_action: 'expensesTable'
     };
 
@@ -228,8 +225,12 @@ function renderPieChart(expensesAndLabels) {
  */
 function getExpenseForLabel() {
 
+    dateMonth = moment(date).format('M');
+    dateYear = moment(date).format('YYYY');
+
     var data = {
-        monthIndex: escapeHtml(currentMonth.getAttribute('data-month-index')),
+        date_month: dateMonth,
+        date_year: dateYear,
         data_action: 'getExpenseForLabel'
     };
 
@@ -241,7 +242,7 @@ function getExpenseForLabel() {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
     },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     }).then(function (response) {
         if (response.ok) {
             // ReadableStream to JSON
