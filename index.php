@@ -63,6 +63,7 @@ $month = getMonthIndex();
         <p>Code by <a href="https://webbrouwer.com" target="_blank">WebBrouwer</a></p>
     </footer>
     <script src="./node_modules/chart.js/dist/Chart.js"></script>
+    <script src="./node_modules/moment/min/moment.min.js"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

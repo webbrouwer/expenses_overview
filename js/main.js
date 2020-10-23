@@ -2,6 +2,11 @@
 // Variables
 //
 
+var a = moment().format('MMMM Do YYYY, h:mm:ss a'); // October 23rd 2020, 9:30:12 pm
+
+console.log(a);
+
+
 var currentMonth = document.querySelector('#js-currentMonth');
 var prevMonthButton = document.querySelector('#js-prevMonth');
 var nextMonthButton = document.querySelector('#js-nextMonth');
