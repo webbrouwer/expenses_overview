@@ -11,7 +11,7 @@ $month = getMonthIndex();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Expense</title>
+    <title>Add Expense • Expenses App</title>
 
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -29,14 +29,14 @@ $month = getMonthIndex();
         </header>
 
         <div class="col-center">
-            <div class="addExpense">
+            <div class="form">
 
                 <form action="<?php echo htmlspecialchars('./db-actions.php'); ?>" method="POST">
-                    <label class="addExpense-inputLabel" for="value">Amount</label>
-                    <input class="addExpense-input" type="number" name="value" id="value" required>
+                    <label class="form-inputLabel" for="value">Amount</label>
+                    <input class="form-input" type="number" name="value" id="value" required>
 
-                    <label class="addExpense-inputLabel">Category</label>
-                    <input class="addExpense-input" type="text" name="category" list="category" placeholder="Select or add category" required />
+                    <label class="form-inputLabel">Category</label>
+                    <input class="form-input" type="text" name="category" list="category" placeholder="Select or add category" required />
                     <datalist id="category">
                             <option>Rent</option>
                             <option>Savings</option>
@@ -50,10 +50,10 @@ $month = getMonthIndex();
                             <option>Other</option>
                     </datalist>
 
-                    <label class="addExpense-inputLabel" for="date">Date</label>
-                    <input id="js-datePicker" class="addExpense-input" type="date" name="date" id="date" required>
+                    <label class="form-inputLabel" for="date">Date</label>
+                    <input id="js-datePicker" class="form-input" type="date" name="date" id="date" required>
 
-                    <button class="addExpense-button" type="submit" name="add-expense">Submit</button>
+                    <button class="form-button" type="submit" name="add-expense">Submit</button>
                 </form>
             </div>
         </div>

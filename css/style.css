@@ -44,6 +44,10 @@ h2, .h2 {
     margin: 3em auto;
 }
 
+.center {
+    text-align: center;
+}
+
 
 /* ---- Misceallanous ---- */
 button {
@@ -67,6 +71,27 @@ a:hover {
 
 .hidden {
     visibility: hidden;
+}
+
+.alt-button {
+    display: block;
+    width: 100%;
+    background-color: green;
+    color: white;
+    font-size: 0.8em;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 8px 16px;
+    box-shadow:  1px 3px 0 rgba(0,0,0,0.2);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.alt-button:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    text-decoration: none;
 }
 
 
@@ -127,41 +152,6 @@ footer a:hover {
     text-decoration: underline;
 }
 
-/* ---- addExpense ---- */
-.addExpense {
-    margin-bottom: 3em;
-}
-
-.addExpense-inputLabel {
-    font-weight: 600;
-    margin-bottom: 0.2em;
-}
-
-.addExpense .addExpense-input {
-    padding: 5px;
-    height: 50px;
-    width: 100%;
-}
-
-.addExpense-button {
-    display: block;
-    width: 100%;
-    background-color: orange;
-    color: white;
-    font-size: 0.8em;
-    text-transform: uppercase;
-    padding: 8px 16px;
-    box-shadow:  1px 3px 0 rgba(0,0,0,0.2);
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.addExpense-button:hover {
-    cursor: pointer;
-    background-color: black;
-    color: white;
-}
-
-
 /* ---- expenseTotal ---- */
 .expenseTotal {
     margin-bottom: 1em;
@@ -211,6 +201,44 @@ label {
 
 input, select {
     margin-bottom: 1em;
+}
+
+.form {
+    margin-bottom: 3em;
+}
+
+.form-inputLabel {
+    font-weight: 600;
+    margin-bottom: 0.2em;
+}
+
+.form .form-input {
+    padding: 5px;
+    height: 50px;
+    width: 100%;
+}
+
+.form-button {
+    display: block;
+    width: 100%;
+    background-color: orange;
+    color: white;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    box-shadow:  1px 3px 0 rgba(0,0,0,0.2);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-button:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}
+
+.form-forgottenPassword {
+    font-size: 0.9em;
+    padding-top: 16px;
 }
 
 /* =================================
@@ -280,4 +308,10 @@ input, select {
 		display: table;
 		clear: both;
 	}
+
+    /* ---- intro ---- */
+
+    .intro {
+        padding-top: 48px;
+    }
 }
