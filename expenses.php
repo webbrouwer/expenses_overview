@@ -23,6 +23,7 @@ $month = getMonthIndex();
         <header class="header">
             <div class="headerNav">
                 <a href="./add-expense.php" class="headerNav-link">Add expense</a>
+                <a href="./logout.php" class="headerNav-link">logout</a>
             </div>
 
             <h1 class="header-title">

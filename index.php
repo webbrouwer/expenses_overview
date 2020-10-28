@@ -1,3 +1,5 @@
+<?php include('./controllers/login.php'); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,13 +23,20 @@
             <div class="form">
 
                 <form action="" method="post">
-                    <label class="form-inputLabel" for="name">Email</label>
-                    <input class="form-input" type="text" name="name" id="name" required />
 
-                    <label class="form-inputLabel" for="email">Password</label>
-                    <input class="form-input" type="email" name="email" id="email" required />
+                    <?php echo $accountNotExistErr; ?>
+                    <?php echo $emailPwdErr; ?>
+                    <?php echo $verificationRequiredErr; ?>
+                    <?php echo $email_empty_err; ?>
+                    <?php echo $pass_empty_err; ?>
 
-                    <button class="form-button" type="submit" name="submit" id="submit">
+                    <label class="form-inputLabel" for="email">Email</label>
+                    <input class="form-input" type="email" name="email_signin" id="email_signin" />
+
+                    <label class="form-inputLabel" for="password">Password</label>
+                    <input class="form-input" type="password" name="password_signin" id="password_signin" />
+
+                    <button class="form-button" type="submit" name="login" id="sign_in">
                         Login
                     </button>
 

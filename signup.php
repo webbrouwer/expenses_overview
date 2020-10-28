@@ -1,3 +1,5 @@
+<?php include('./controllers/register.php'); ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +20,12 @@
             <p>It's Quick and Easy</p>
         </header>
 
+        <?php echo $success_msg; ?>
+        <?php echo $email_exist; ?>
+
+        <?php echo $email_verify_err; ?>
+        <?php echo $email_verify_success; ?>
+
         <div class="col-center">
             <div class="form">
 
@@ -25,15 +33,28 @@
                     <label class="form-inputLabel" for="name">Name</label>
                     <input class="form-input" type="text" name="name" id="name" required />
 
+                    <?php echo $nameEmptyErr; ?>
+                    <?php echo $_nameErr; ?>
+
                     <label class="form-inputLabel" for="email">Email</label>
                     <input class="form-input" type="email" name="email" id="email" required />
+
+                    <?php echo $_emailErr; ?>
+                    <?php echo $emailEmptyErr; ?>
 
                     <label class="form-inputLabel" for="password">Password</label>
                     <input class="form-input" type="password" name="password" id="password" required />
 
+                    <?php echo $_passwordErr; ?>
+                    <?php echo $passwordEmptyErr; ?>
+
                     <button class="form-button" type="submit" name="submit" id="submit">
                         Sign up
                     </button>
+
+                    <p class="form-forgottenPassword center">
+                        <em><a href="./index.php">or Login?</a></em>
+                    </p>
                 </form>
 
             </div><!-- /form -->

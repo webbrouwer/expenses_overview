@@ -29,7 +29,10 @@
  ## TODO
 
 - [x] fix month counting, include years.
-- [ ] Add accounts and login --> https://www.positronx.io/build-php-mysql-login-and-user-authentication-system/
+- [x] Add accounts and login --> https://www.positronx.io/build-php-mysql-login-and-user-authentication-system/
+- [ ] Make data personal with accounts
+- [ ] Make dashboard only visible for logged in users
+- [ ] Password reset
 - [ ] Deploy to the world!
 - [x] feedback for empty of faults in add expense form
 - [x] make custom adding expense category possible
