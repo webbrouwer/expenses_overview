@@ -1,9 +1,11 @@
 <?php
-// Silky smooth functions
-include "./db-actions.php";
-include "./functions.php";
+/**
+ * Check if user is logged in
+ */
+// include("auth_session.php");
 
-$month = getMonthIndex();
+// Silky smooth functions
+include('./db-actions.php');
 
 ?>
 <!DOCTYPE html>

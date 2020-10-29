@@ -51,12 +51,13 @@
                 // Allow only verified user
                 if($is_active == '1') {
                     if($email_signin == $email && $password_signin == $password) {
-                       header("Location: ./expenses.php");
 
                        $_SESSION['id'] = $id;
-                       $_SESSION['name'] = $namename;
+                       $_SESSION['name'] = $name;
                        $_SESSION['email'] = $email;
                        $_SESSION['token'] = $token;
+
+                       header("Location: ./expenses.php");
 
                     } else {
                         $emailPwdErr = '<div class="alert alert-danger">

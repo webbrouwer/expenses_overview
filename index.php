@@ -1,4 +1,8 @@
-<?php include('./controllers/login.php'); ?>
+<?php include('./controllers/login.php');
+
+var_dump($_SESSION);
+
+ ?>
 
 <!DOCTYPE html>
 <html>
