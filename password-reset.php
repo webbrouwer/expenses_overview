@@ -1,8 +1,8 @@
 <?php
 
-include('./controllers/login.php');
+include('./controllers/password_reset.php');
 
-session_start();
+// session_start();
 
 ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expenses App • Log in or sign up</title>
+    <title>Expenses App • Password reset</title>
 
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -19,8 +19,7 @@ session_start();
 
     <div class="container">
         <header class="header">
-            <h1>Expenses Overview</h1>
-            <p>Expenses Overview helps you keep track of your money expenses with monthly views and statistics.</p>
+            <h1>Expenses Overview • Password Reset</h1>
         </header>
 
         <div class="col-center">
@@ -29,30 +28,23 @@ session_start();
 
                 <form action="" method="post">
 
+                    <?php echo $email_doesnt_exist; ?>
                     <?php echo $accountNotExistErr; ?>
                     <?php echo $emailPwdErr; ?>
                     <?php echo $verificationRequiredErr; ?>
                     <?php echo $email_empty_err; ?>
-                    <?php echo $pass_empty_err; ?>
 
                     <label class="form-inputLabel" for="email">Email</label>
-                    <input class="form-input" type="email" name="email_signin" id="email_signin" />
+                    <input class="form-input" type="email" name="email" id="email" />
 
-                    <label class="form-inputLabel" for="password">Password</label>
-                    <input class="form-input" type="password" name="password_signin" id="password_signin" />
-
-                    <button class="form-button" type="submit" name="login" id="sign_in">
-                        Login
+                    <button class="form-button" type="submit" name="password_reset">
+                        Reset password
                     </button>
-
-                    <p class="form-forgottenPassword center">
-                        <em><a href="./password-reset.php">Forgotten password?</a></em>
-                    </p>
                 </form>
 
             </div> <!-- /form -->
 
-            <a href="./signup.php" class="alt-button">Create new account</a>
+            <a href="./signup.php" class="alt-button">Or create account</a>
 
         </div> <!-- /col-center -->
 

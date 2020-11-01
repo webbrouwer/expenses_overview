@@ -11,12 +11,10 @@
     global $nameEmptyErr, $emailEmptyErr, $passwordEmptyErr, $email_verify_err, $email_verify_success;
 
     // Set empty form vars for validation mapping
-    $_name = $_email = $_password = "";
+    $_email = "";
 
-    if(isset($_POST["submit"])) {
-        $name          = $_POST["name"];
+    if(isset($_POST["password_reset"])) {
         $email         = $_POST["email"];
-        $password      = $_POST["password"];
 
         // check if email already exist
         $email_check_query = mysqli_query($connection, "SELECT * FROM users WHERE email = '{$email}' ");
@@ -24,16 +22,21 @@
 
         // PHP validation
         // Verify if form values are not empty
-        if(!empty($name) &&  !empty($email) && !empty($password)){
+        if(!empty($email)) {
 
             // check if user email already exist
             if($rowCount > 0) {
-                $email_exist = '
+                echo 'send email';
+                die();
+            } else {
+                $email_doesnt_exist = '
                     <div class="errorMessage" role="alert">
-                        User with email already exist!
+                        User with email doesn\'t exist!
                     </div>
                 ';
-            } else {
+                echo $email_doesnt_exist;
+                die();
+
                 // clean the form data before sending to database
                 $_name = mysqli_real_escape_string($connection, $name);
                 $_email = mysqli_real_escape_string($connection, $email);
@@ -117,19 +120,11 @@
                 }
             }
         } else {
-            if(empty($name)){
-                $nameEmptyErr = '<div class="errorMessage">
-                    Name can not be blank.
-                </div>';
-            }
+            echo 'insert email bro';
+            die();
             if(empty($email)){
                 $emailEmptyErr = '<div class="errorMessage">
                     Email can not be blank.
-                </div>';
-            }
-            if(empty($password)){
-                $passwordEmptyErr = '<div class="errorMessage">
-                    Password can not be blank.
                 </div>';
             }
         }
