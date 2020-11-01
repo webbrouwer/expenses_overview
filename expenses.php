@@ -1,9 +1,8 @@
 <?php
-var_dump($_SESSION);
-
 /**
  * Check if user is logged in
  */
+session_start();
 include('./auth_session.php');
 
 include('./db-actions.php');

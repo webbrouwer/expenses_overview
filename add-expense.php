@@ -2,9 +2,9 @@
 /**
  * Check if user is logged in
  */
-// include("auth_session.php");
+session_start();
+include('./auth_session.php');
 
-// Silky smooth functions
 include('./db-actions.php');
 
 ?>
@@ -22,7 +22,8 @@ include('./db-actions.php');
     <div class="container">
         <header class="header">
             <div class="headerNav">
-                <a href="./index.php" class="headerNav-link">Home</a>
+                <a href="./expenses.php" class="headerNav-link">Dashboard</a>
+                <a href="./logout.php" class="headerNav-link">logout</a>
             </div>
 
             <h1 class="header-title">

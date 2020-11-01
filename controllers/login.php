@@ -25,13 +25,13 @@
 
         if(!empty($email_signin) && !empty($password_signin)){
             if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{6,20}$/", $pswd)) {
-                $wrongPwdErr = '<div class="alert alert-danger">
+                $wrongPwdErr = '<div class="errorMessage">
                         Password should be between 6 to 20 charcters long, contains atleast one special chacter, lowercase, uppercase and a digit.
                     </div>';
             }
             // Check if email exist
             if($rowCount <= 0) {
-                $accountNotExistErr = '<div class="alert alert-danger">
+                $accountNotExistErr = '<div class="errorMessage">
                         User account does not exist.
                     </div>';
             } else {
@@ -60,12 +60,12 @@
                        header("Location: ./expenses.php");
 
                     } else {
-                        $emailPwdErr = '<div class="alert alert-danger">
+                        $emailPwdErr = '<div class="errorMessage">
                                 Either email or password is incorrect.
                             </div>';
                     }
                 } else {
-                    $verificationRequiredErr = '<div class="alert alert-danger">
+                    $verificationRequiredErr = '<div class="errorMessage">
                             Account verification is required for login.
                         </div>';
                 }
@@ -74,13 +74,13 @@
 
         } else {
             if(empty($email_signin)){
-                $email_empty_err = "<div class='alert alert-danger email_alert'>
+                $email_empty_err = "<div class='errorMessage'>
                             Email not provided.
                     </div>";
             }
 
             if(empty($password_signin)){
-                $pass_empty_err = "<div class='alert alert-danger email_alert'>
+                $pass_empty_err = "<div class='errorMessage'>
                             Password not provided.
                         </div>";
             }

@@ -1,9 +1,10 @@
-<?php include('./controllers/login.php');
+<?php
 
-var_dump($_SESSION);
+include('./controllers/login.php');
 
- ?>
+session_start();
 
+?>
 <!DOCTYPE html>
 <html>
 <head>

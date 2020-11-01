@@ -29,7 +29,7 @@
             // check if user email already exist
             if($rowCount > 0) {
                 $email_exist = '
-                    <div class="alert alert-danger" role="alert">
+                    <div class="errorMessage" role="alert">
                         User with email already exist!
                     </div>
                 ';
@@ -41,17 +41,17 @@
 
                 // perform validation
                 if(!preg_match("/^[a-zA-Z ]*$/", $_name)) {
-                    $_nameErr = '<div class="alert alert-danger">
+                    $_nameErr = '<div class="errorMessage">
                             Only letters and white space allowed.
                         </div>';
                 }
                 if(!filter_var($_email, FILTER_VALIDATE_EMAIL)) {
-                    $_emailErr = '<div class="alert alert-danger">
+                    $_emailErr = '<div class="errorMessage">
                             Email format is invalid.
                         </div>';
                 }
                 if(!preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{6,20}$/", $_password)) {
-                    $_passwordErr = '<div class="alert alert-danger">
+                    $_passwordErr = '<div class="errorMessage">
                              Password should be between 6 to 20 charcters long, contains atleast one special chacter, lowercase, uppercase and a digit.
                         </div>';
                 }
@@ -105,7 +105,7 @@
                         $result = $mailer->send($message);
 
                         if(!$result){
-                            $email_verify_err = '<div class="alert alert-danger">
+                            $email_verify_err = '<div class="errorMessage">
                                 Verification email coud not be sent!
                             </div>';
                         } else {
@@ -118,17 +118,17 @@
             }
         } else {
             if(empty($name)){
-                $nameEmptyErr = '<div class="alert alert-danger">
+                $nameEmptyErr = '<div class="errorMessage">
                     Name can not be blank.
                 </div>';
             }
             if(empty($email)){
-                $emailEmptyErr = '<div class="alert alert-danger">
+                $emailEmptyErr = '<div class="errorMessage">
                     Email can not be blank.
                 </div>';
             }
             if(empty($password)){
-                $passwordEmptyErr = '<div class="alert alert-danger">
+                $passwordEmptyErr = '<div class="errorMessage">
                     Password can not be blank.
                 </div>';
             }

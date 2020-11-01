@@ -112,7 +112,7 @@ header button {
     background-color: transparent;
 }
 
-.headerNav-link {
+.headerNav {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -122,6 +122,7 @@ header button {
     color: white;
     text-decoration: none;
     font-style: italic;
+    margin-left: 0.5em;
 }
 
 .headerNav-link:hover {
@@ -239,6 +240,14 @@ input, select {
 .form-forgottenPassword {
     font-size: 0.9em;
     padding-top: 16px;
+}
+
+.errorMessage {
+    display: block;
+    background-color: brown;
+    font-size: 0.8em;
+    padding: 8px 16px;
+    margin-bottom: 0.5em;
 }
 
 /* =================================

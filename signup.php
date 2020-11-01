@@ -1,5 +1,4 @@
 <?php include('./controllers/register.php'); ?>
-
 <!DOCTYPE html>
 <html>
 <head>
