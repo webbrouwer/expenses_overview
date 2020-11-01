@@ -21,13 +21,13 @@
                   if($is_active == 0) {
                      $update = mysqli_query($connection, "UPDATE users SET is_active = '1' WHERE token = '$token' ");
                        if($update){
-                           $email_verified = '<div class="alert alert-success">
+                           $email_verified = '<div class="successMessage">
                                   User email successfully verified!
                                 </div>
                            ';
                        }
                   } else {
-                        $email_already_verified = '<div class="alert alert-danger">
+                        $email_already_verified = '<div class="errorMessage">
                                User email already verified!
                             </div>
                         ';

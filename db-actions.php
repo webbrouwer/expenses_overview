@@ -10,6 +10,7 @@ if (isset($_REQUEST['add-expense'])) {
     $value = htmlspecialchars($_POST['value'], ENT_QUOTES, 'utf-8');
     $category = htmlspecialchars($_POST['category'], ENT_QUOTES, 'utf-8');
     $date = htmlspecialchars($_POST['date'], ENT_QUOTES, 'utf-8');
+    $user_id = htmlspecialchars($_SESSION['id'], ENT_QUOTES, 'utf-8');
 
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);
@@ -18,10 +19,11 @@ if (isset($_REQUEST['add-expense'])) {
         $data = [
             'value' => $value,
             'category' => $category,
-            'date' => $date
+            'date' => $date,
+            'user_id' => $user_id
         ];
 
-        $sql = "INSERT INTO expenses (value, category, date) VALUES (:value, :category, :date)";
+        $sql = "INSERT INTO expenses (value, category, user_id, date) VALUES (:value, :category, :user_id, :date)";
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
@@ -31,7 +33,7 @@ if (isset($_REQUEST['add-expense'])) {
         echo $sql . "<br>" . $error->getMessage();
     }
 
-    header('location: ' . $homeUrl);
+    header('location: ' . $dashboard);
 };
 
 
@@ -43,18 +45,22 @@ if (isset($_REQUEST['add-expense'])) {
 function totalAmount($month, $year) {
     include './config/config.php';
 
+    $user_id = htmlspecialchars($_SESSION['id'], ENT_QUOTES, 'utf-8');
+
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
             'month' => $month,
-            'year' => $year
+            'year' => $year,
+            'user_id' => $user_id
         ];
 
         $sql = "SELECT value FROM expenses
                 WHERE YEAR(Date) = :year
-                AND MONTH(Date) = :month";
+                AND MONTH(Date) = :month
+                AND user_id = :user_id";
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
@@ -82,18 +88,22 @@ function totalAmount($month, $year) {
 function allExpenses($month, $year) {
     include './config/config.php';
 
+    $user_id = htmlspecialchars($_SESSION['id'], ENT_QUOTES, 'utf-8');
+
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);
 
     try {
         $data = [
             'month' => $month,
-            'year' => $year
+            'year' => $year,
+            'user_id' => $user_id
         ];
 
         $sql = "SELECT * FROM expenses
                 WHERE YEAR(Date) = :year
-                AND MONTH(Date) = :month";
+                AND MONTH(Date) = :month
+                AND user_id = :user_id";
 
         $statement = $connection->prepare($sql);
         $statement->execute($data);
@@ -167,7 +177,7 @@ function deleteExpense($id) {
         echo $sql . "<br>" . $error->getMessage();
     }
 
-    header('location: ' . $homeUrl);
+    header('location: ' . $dashboard);
 
 };
 
@@ -186,11 +196,14 @@ if(isset($_POST['deleteExpense'])) {
 };
 
 
-// @TODO: calculate expense per label / category and return for use in Pie Chart
-// https://www.mysqltutorial.org/mysql-rollup/
+/**
+ * Get expense per label
+ */
 function getExpenseForLabel($month, $year) {
 
     include './config/config.php';
+
+    $user_id = htmlspecialchars($_SESSION['id'], ENT_QUOTES, 'utf-8');
 
     // Connection
     $connection = new PDO($dsn, $username, $password, $options);
@@ -198,13 +211,15 @@ function getExpenseForLabel($month, $year) {
     try {
         $data = [
             'month' => $month,
-            'year' => $year
+            'year' => $year,
+            'user_id' => $user_id
         ];
 
          $sql = "SELECT category, SUM(value) totalAmount
                 FROM expenses
                 WHERE MONTH(Date) = :month
                 AND YEAR(Date) = :year
+                AND user_id = :user_id
                 GROUP BY category";
 
         $statement = $connection->prepare($sql);

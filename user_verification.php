@@ -20,13 +20,13 @@
 
         <div class="col-center">
 
-            <h3>Email Verification</h3>
+            <h3 class="center">Email Verification</h3>
             <div class="center">
                 <?php echo $email_already_verified; ?>
                 <?php echo $email_verified; ?>
                 <?php echo $activation_error; ?>
             </div>
-            <p>If user account is verified then click on the following button to login.</p>
+            <br>
             <a class="alt-button" href="./index.php"
                >Click to Login
             </a>

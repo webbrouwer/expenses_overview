@@ -83,7 +83,7 @@
                     // Send verification email
                     if($sqlQuery) {
                         $msg = 'Click on the activation link to verify your email. <br><br>
-                          <a href="http://localhost/~webbrouwer/expenses_overview/user_verificaiton.php?token='.$token.'"> Click here to verify email</a>
+                          <a href="http://localhost/~webbrouwer/expenses_overview/user_verification.php?token='.$token.'"> Click here to verify email</a>
                         ';
 
                         // Create the Transport
@@ -109,7 +109,7 @@
                                 Verification email coud not be sent!
                             </div>';
                         } else {
-                            $email_verify_success = '<div class="alert alert-success">
+                            $email_verify_success = '<div class="successMessage">
                                 Verification email has been sent!
                             </div>';
                         }

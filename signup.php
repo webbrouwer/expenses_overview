@@ -19,14 +19,14 @@
             <p>It's Quick and Easy</p>
         </header>
 
-        <?php echo $success_msg; ?>
-        <?php echo $email_exist; ?>
-
-        <?php echo $email_verify_err; ?>
-        <?php echo $email_verify_success; ?>
-
         <div class="col-center">
             <div class="form">
+
+                <?php echo $success_msg; ?>
+                <?php echo $email_exist; ?>
+
+                <?php echo $email_verify_err; ?>
+                <?php echo $email_verify_success; ?>
 
                 <form action="" method="post">
                     <label class="form-inputLabel" for="name">Name</label>

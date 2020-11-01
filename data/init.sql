@@ -6,8 +6,9 @@ CREATE TABLE `expenses` (
     `id` INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `value` decimal(13,2) NOT NULL,
     `category` text NOT NULL,
+    `user_id` INT(11) NOT NULL,
     `date` date NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `users` (
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

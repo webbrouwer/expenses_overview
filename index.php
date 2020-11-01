@@ -62,7 +62,6 @@ session_start();
         <p>Code by <a href="https://webbrouwer.com" target="_blank">WebBrouwer</a></p>
     </footer>
     <script src="./js/main.js"></script>
-
 </body>
 
 </html>

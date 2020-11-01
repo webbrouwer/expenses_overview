@@ -250,6 +250,15 @@ input, select {
     margin-bottom: 0.5em;
 }
 
+.successMessage {
+    display: block;
+    background-color: olivedrab;
+    font-size: 0.8em;
+    padding: 8px 16px;
+    margin-bottom: 0.5em;
+}
+
+
 /* =================================
   Media Queries
 ==================================== */
