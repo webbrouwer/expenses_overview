@@ -45,9 +45,10 @@ session_start();
                         Login
                     </button>
 
-                    <p class="form-forgottenPassword center">
+                    <!-- @TODO: add password reset function -->
+<!--                     <p class="form-forgottenPassword center">
                         <em><a href="./password-reset.php">Forgotten password?</a></em>
-                    </p>
+                    </p> -->
                 </form>
 
             </div> <!-- /form -->
