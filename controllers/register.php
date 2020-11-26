@@ -60,7 +60,8 @@
                 if(
                     (preg_match("/^[a-zA-Z ]*$/", $_name)) &&
                     (filter_var($_email, FILTER_VALIDATE_EMAIL)) &&
-                    (preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{8,20}$/", $_password))){
+                    (preg_match("/^(?=.*\d)(?=.*[@#\-_$%^&+=§!\?])(?=.*[a-z])(?=.*[A-Z])[0-9A-Za-z@#\-_$%^&+=§!\?]{6,20}$/", $_password))
+                    ) {
 
                     // Generate random activation token
                     $token = md5(rand().time());

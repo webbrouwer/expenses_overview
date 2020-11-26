@@ -3,6 +3,7 @@
 * Create a config/config.php file and insert code from below. Adjust it to your credentials.
 * Visit local HOME_URL/config/install.php to install database
 * Run `npm install`.
+* Run `composer install`.
 * You are good to go. :+1:
 
 ```php
@@ -48,8 +49,10 @@ session_start();
 
  ## TODO
 
+- [ ] Add SSL on server
+- [ ] Add deploy cycle from local to server!
 - [ ] Add password reset function
-- [ ] Fix branded activation mail
+- [ ] Add branded activation mail
 - [ ] Deploy to the world!
 - [x] fix month counting, include years.
 - [x] Add accounts and login --> https://www.positronx.io/build-php-mysql-login-and-user-authentication-system/
