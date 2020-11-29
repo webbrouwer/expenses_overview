@@ -1,5 +1,7 @@
 # Set up
 
+TEST
+
 * Create a config/config.php file and insert code from below. Adjust it to your credentials.
 * Visit local HOME_URL/config/install.php to install database
 * Run `npm install`.
