@@ -20,7 +20,7 @@ session_start();
     <div class="container">
         <header class="header">
             <h1>Expenses Overview</h1>
-            <h2>Test 3</h2>
+            <h2>Test 4</h2>
             <p>Expenses Overview helps you keep track of your money expenses with monthly views and statistics.</p>
         </header>
 
