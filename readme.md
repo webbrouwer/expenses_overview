@@ -6,6 +6,8 @@
 * Run `composer install`.
 * You are good to go. :+1:
 
+* Push to production: `git push production master`
+
 ```php
 <?php
 
