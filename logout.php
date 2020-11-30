@@ -2,4 +2,4 @@
     session_start();
     session_destroy();
 
-    header("Location: http://localhost/~webbrouwer/expenses_overview");
+    header('Location: ' . $homeUrl);
