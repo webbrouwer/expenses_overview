@@ -16,6 +16,8 @@ include('./db-actions.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses Overview • Expenses App</title>
 
+    <link rel="icon" type="image/png" href="/favicon.ico"/>
+
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
     <link rel="stylesheet" href="./css/style.css">
 </head>

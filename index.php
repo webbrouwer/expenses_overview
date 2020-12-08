@@ -2,8 +2,6 @@
 
 include('./controllers/login.php');
 
-session_start();
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,6 +9,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expenses App • Log in or sign up</title>
+
+    <link rel="icon" type="image/png" href="/favicon.ico"/>
 
     <link rel="stylesheet" href="https://unpkg.com/modern-css-reset/dist/reset.min.css">
     <link rel="stylesheet" href="./css/style.css">
