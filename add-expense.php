@@ -68,6 +68,7 @@ include('./db-actions.php');
     <footer>
         <p>Code by <a href="https://webbrouwer.com" target="_blank">WebBrouwer</a></p>
     </footer>
+    <script src="./node_modules/moment/min/moment.min.js"></script>    
     <script src="./js/main.js"></script>
 </body>
 </html>

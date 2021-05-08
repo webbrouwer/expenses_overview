@@ -51,11 +51,12 @@ session_start();
 
  ## TODO
 
-- [ ] Add SSL on server
-- [ ] Add deploy cycle from local to server!
+- [ ] Add deploy cycle from local to server
 - [ ] Add password reset function
 - [ ] Add branded activation mail
-- [ ] Deploy to the world!
+- [x] Fix invalid date error on Safari and mobile
+- [x] Add SSL on server
+- [x] Deploy to the world!
 - [x] fix month counting, include years.
 - [x] Add accounts and login --> https://www.positronx.io/build-php-mysql-login-and-user-authentication-system/
 - [x] Make data personal with accounts

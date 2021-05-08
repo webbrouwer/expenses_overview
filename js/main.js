@@ -11,7 +11,7 @@ var expenseTotalValue = document.querySelector('#js-expenseTotal-value');
 
 var expensesTable = document.querySelector('#expensesTable');
 
-var date = moment().format('MMM YYYY');
+var date = moment().format('YYYY-MM-DD');
 // var monthIndex = date.getMonth() + 1;
 
 // Background colors labels in Pie Chart
@@ -51,7 +51,7 @@ function escapeHtml(unsafe) {
  * Display the current month on the page
  */
 if(currentMonth) {
-    currentMonth.innerHTML = date;
+    currentMonth.innerHTML = moment(date).format('MMM YYYY');
 };
 
 
@@ -72,12 +72,14 @@ function clickHandler() {
     if(!event.target.matches('#js-prevMonth, #js-nextMonth')) return;
 
     if(event.target.matches('#js-nextMonth')) {
-        date = moment(date).add(1, 'M').format('MMM YYYY');
+        console.log('1: ' + date);
+        date = moment(date).add(1, 'M').format('YYYY-MM-DD');
+        console.log('2: ' + date);
     } else if(event.target.matches('#js-prevMonth')) {
-        date = moment(date).subtract(1, 'M').format('MMM YYYY');
+        date = moment(date).subtract(1, 'M').format('YYYY-MM-DD');
     }
 
-    currentMonth.innerHTML = date;
+    currentMonth.innerHTML = moment(date).format('MMM YYYY');
 
     getMonthlyAmountSpend();
     renderExpensesTable();
