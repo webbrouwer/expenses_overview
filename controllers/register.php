@@ -97,7 +97,7 @@
 
                         // Create a message
                         $message = (new Swift_Message('Please Verify Email Address!'))
-                        ->setFrom([$email => $name . ' ' . $lastname])
+                        ->setFrom([$email => $name])
                         ->setTo($email)
                         ->addPart($msg, "text/html")
                         ->setBody('Hello! User');
